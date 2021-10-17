@@ -58,6 +58,8 @@ var scrollToBottom = function() {
 }
 
 var signInOrOut = function() {
+  alert("fbauth.currentUser: " + fbauth.currentUser);
+  alert("!!fbauth.currentUser: " + !!fbauth.currentUser);
   if (fbauth.currentUser) {
     alert("!!fbauth.currentUser");
     firebase.auth().signOut().then(function() {
