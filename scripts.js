@@ -79,5 +79,5 @@ var signIn = function() {
   });
 }
 
-document.querySelector("#sign_in_button").addEventListener("click", signInWithRedirect(auth, provider));
+//document.querySelector("#sign_in_button").addEventListener("click", signInWithRedirect(auth, provider));
 scrollToBottom();
