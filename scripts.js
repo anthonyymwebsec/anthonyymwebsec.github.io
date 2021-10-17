@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
 import * as rtdb from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
-import { getAuth, onAuthStateChanged, getRedirectResult, signInWithPopup, signInWithRedirect, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js';
+//import { getAuth, onAuthStateChanged, getRedirectResult, signInWithPopup, signInWithRedirect, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js';
+import * as fbauth from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
 
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -20,7 +21,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // Configure auth
-const auth = getAuth(app);
+const auth = fbauth.getAuth(app);
 const provider = new GoogleAuthProvider();
 
 // Configure rtdb
@@ -57,29 +58,19 @@ var scrollToBottom = function() {
 }
 
 var signIn = function() {
-  signInWithRedirect(auth, provider);
+  fbauth.signInWithRedirect(auth, provider);
 }
 
-getRedirectResult(auth)
+fbauth.getRedirectResult(auth)
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access Google APIs.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const credential = fbauth.GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
 
     // The signed-in user info.
     const user = result.user;
     alert("signed in user");
     alert(user.email);
-
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        console.log('Logged in as ${user.email}' );
-        alert('Logged in as ${user.email}')
-      } else {
-        console.log('No user');
-        alert('No user');
-      }
-    });
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
@@ -87,13 +78,22 @@ getRedirectResult(auth)
     // The email of the user's account used.
     const email = error.email;
     // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
+    const credential = fbauth.GoogleAuthProvider.credentialFromError(error);
     // ...
     console.log("auth error");
     console.log(error)
     alert("auth error");
   });
 
+fbauth.onAuthStateChanged(auth, user => {
+  if (user) {
+    console.log(`'Logged in as ${user.email}'`);
+    alert(`'Logged in as ${user.email}'`)
+  } else {
+    console.log('No user');
+    alert('No user');
+  }
+});
 
 document.querySelector("#sign_in_button").addEventListener("click", signIn);
 scrollToBottom();
