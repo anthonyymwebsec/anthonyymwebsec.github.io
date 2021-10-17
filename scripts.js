@@ -37,6 +37,7 @@ rtdb.onValue(titleRef, ss=> {
     var ul = document.getElementById("msg_list");
     var li = document.createElement("li");
     var message = childSnapshot.val().content
+    var user = childSnapshot.val().username
     //console.log(message);
     //innerText = innerText + "<li>" + message + "</li>";
     li.appendChild(document.createTextNode(message))
@@ -46,7 +47,10 @@ rtdb.onValue(titleRef, ss=> {
 
 var submitHandler = function(eventObject) {
   let message = document.querySelector("#message").value;
-  let newObj = {"content": message};
+  let newObj = {
+    //"username": username,
+    "content": message
+  };
   rtdb.push(titleRef, newObj);
   scrollToBottom();
 }
@@ -59,9 +63,9 @@ var scrollToBottom = function() {
 
 var signIn = function() {
   alert("signing in");
+  fbauth.signInWithRedirect(auth, provider);
   alert("fbauth.currentUser: " + fbauth.currentUser);
   alert("!!fbauth.currentUser: " + !!fbauth.currentUser);
-  fbauth.signInWithRedirect(auth, provider);
 }
 
 var signOutCallback = function() {
