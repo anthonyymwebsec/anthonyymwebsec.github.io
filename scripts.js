@@ -81,6 +81,10 @@ var signOutCallback = function() {
   });
 }
 
+var checkSignInOutCallback = function() {
+  alert("fbauth.currentUser: " + fbauth.currentUser);
+}
+
 fbauth.onAuthStateChanged(auth, user => {
   if (!!user) {
     // user signed in, so show the app
@@ -99,4 +103,5 @@ fbauth.onAuthStateChanged(auth, user => {
 
 document.querySelector("#sign_in_button").addEventListener("click", signIn);
 document.querySelector("#sign_out_button").addEventListener("click", signOutCallback);
+document.querySelector("#signin_status_button").addEventListener("click", checkSignInOutCallback);
 scrollToBottom();
