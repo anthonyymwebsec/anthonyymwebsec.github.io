@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
 import * as rtdb from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
-import { getAuth, onAuthStateChanged, signInWithPopup, signInWithRedirect, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js';
+import { getAuth, onAuthStateChanged, getRedirectResult, signInWithPopup, signInWithRedirect, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js';
 
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -58,7 +58,9 @@ var scrollToBottom = function() {
 
 var signIn = function() {
   signInWithRedirect(auth, provider);
-  getRedirectResult(auth)
+}
+
+getRedirectResult(auth)
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access Google APIs.
     const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -66,7 +68,7 @@ var signIn = function() {
 
     // The signed-in user info.
     const user = result.user;
-    console.log("signed in user");
+    alert("signed in user");
     alert(user.email);
 
     onAuthStateChanged(auth, user => {
@@ -91,8 +93,6 @@ var signIn = function() {
     console.log(error)
     alert("auth error");
   });
-}
-
 
 
 document.querySelector("#sign_in_button").addEventListener("click", signIn);
