@@ -86,12 +86,14 @@ fbauth.getRedirectResult(auth)
   });
 
 fbauth.onAuthStateChanged(auth, user => {
-  if (user) {
+  if (!!user) {
     console.log(`'Logged in as ${user.email}'`);
     alert(`'Logged in as ${user.email}'`)
+    document.querySelector("#sign_in_button").innerText = "Sign out"    
   } else {
     console.log('No user');
     alert('No user');
+    document.querySelector("#sign_in_button").innerText = "Sign in"
   }
 });
 
