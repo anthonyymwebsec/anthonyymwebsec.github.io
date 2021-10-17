@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
-import * as rtdb from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
+import * as rtdb from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
 //import { getAuth, onAuthStateChanged, getRedirectResult, signInWithPopup, signInWithRedirect, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js';
-import * as fbauth from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
+import * as fbauth from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
 
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -61,12 +61,12 @@ var signIn = function() {
   alert("signing in");
   alert("fbauth.currentUser: " + fbauth.currentUser);
   alert("!!fbauth.currentUser: " + !!fbauth.currentUser);
-  //fbauth.signInWithRedirect(auth, provider);
+  fbauth.signInWithRedirect(auth, provider);
 }
 
-var signOut = function() {
+var signOutCallback = function() {
   alert("signing out");
-  fbauth.auth.signOut().then(function() {
+  fbauth.signOut(auth).then(function() {
     // sign-out success
     console.log("sign out success");
     alert("sign out success");
@@ -94,5 +94,5 @@ fbauth.onAuthStateChanged(auth, user => {
 });
 
 document.querySelector("#sign_in_button").addEventListener("click", signIn);
-document.querySelector("#sign_out_button").addEventListener("click", signOut);
+document.querySelector("#sign_out_button").addEventListener("click", signOutCallback);
 scrollToBottom();
