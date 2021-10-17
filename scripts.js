@@ -67,13 +67,15 @@ var signIn = function() {
     // The signed-in user info.
     const user = result.user;
     console.log("signed in user");
-    console.log(user);
+    alert(user.email);
 
     onAuthStateChanged(auth, user => {
       if (user) {
         console.log('Logged in as ${user.email}' );
+        alert('Logged in as ${user.email}')
       } else {
         console.log('No user');
+        alert('No user');
       }
     });
   }).catch((error) => {
@@ -87,6 +89,7 @@ var signIn = function() {
     // ...
     console.log("auth error");
     console.log(error)
+    alert("auth error");
   });
 }
 
