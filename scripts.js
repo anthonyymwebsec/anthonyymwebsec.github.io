@@ -66,7 +66,16 @@ var signIn = function() {
 
     // The signed-in user info.
     const user = result.user;
+    console.log("signed in user");
     console.log(user);
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        console.log('Logged in as ${user.email}' );
+      } else {
+        console.log('No user');
+      }
+    });
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
@@ -76,8 +85,12 @@ var signIn = function() {
     // The AuthCredential type that was used.
     const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
+    console.log("auth error");
+    console.log(error)
   });
 }
+
+
 
 document.querySelector("#sign_in_button").addEventListener("click", signIn);
 scrollToBottom();
