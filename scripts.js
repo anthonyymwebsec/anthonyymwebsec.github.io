@@ -22,7 +22,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // Configure auth
 const auth = fbauth.getAuth(app);
-const provider = new GoogleAuthProvider();
+const provider = new fbauth.GoogleAuthProvider();
 
 // Configure rtdb
 let db = rtdb.getDatabase(app);
