@@ -62,11 +62,14 @@ var signInOrOut = function() {
     firebase.auth().signOut().then(function() {
       // sign-out success
       console.log("sign out success");
+      alert("sign out success");
     }).catch(function(error) {
       // error
       console.log("sign out error");
+      alert("sign out error");
     });
   } else {
+    console.log("signing in");
     fbauth.signInWithRedirect(auth, provider);
   }
 }
@@ -90,9 +93,10 @@ fbauth.getRedirectResult(auth)
     // The AuthCredential type that was used.
     const credential = fbauth.GoogleAuthProvider.credentialFromError(error);
     // ...
-    console.log("auth error");
-    console.log(error)
-    alert("auth error");
+    console.log("auth error:");
+    console.log("error.code: " + error.code);
+    console.log("error.message: " + error.message);
+    alert(`"auth error ${errorCode} ${errorMessage} ${email}"`);
   });
 
 fbauth.onAuthStateChanged(auth, user => {
