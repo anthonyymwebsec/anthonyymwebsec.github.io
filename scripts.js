@@ -59,6 +59,7 @@ var scrollToBottom = function() {
 
 var signInOrOut = function() {
   if (!!fbauth.currentUser) {
+    alert("!!fbauth.currentUser");
     firebase.auth().signOut().then(function() {
       // sign-out success
       console.log("sign out success");
@@ -70,34 +71,10 @@ var signInOrOut = function() {
     });
   } else {
     console.log("signing in");
-    fbauth.signInWithRedirect(auth, provider);
+    alert("signing in");
+    //fbauth.signInWithRedirect(auth, provider);
   }
 }
-
-fbauth.getRedirectResult(auth)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access Google APIs.
-    const credential = fbauth.GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-
-    // The signed-in user info.
-    const user = result.user;
-    alert("signed in user");
-    alert(user.email);
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The AuthCredential type that was used.
-    const credential = fbauth.GoogleAuthProvider.credentialFromError(error);
-    // ...
-    console.log("auth error:");
-    console.log("error.code: " + error.code);
-    console.log("error.message: " + error.message);
-    alert(`"auth error ${errorCode} ${errorMessage} ${email}"`);
-  });
 
 fbauth.onAuthStateChanged(auth, user => {
   if (!!user) {
