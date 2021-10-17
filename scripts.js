@@ -58,7 +58,7 @@ var scrollToBottom = function() {
 }
 
 var signInOrOut = function() {
-  if (!!fbauth.auth().currentUser) {
+  if (!!fbauth.currentUser) {
     firebase.auth().signOut().then(function() {
       // sign-out success
       console.log("sign out success");
