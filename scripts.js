@@ -40,7 +40,7 @@ rtdb.onValue(titleRef, ss=> {
     var user = childSnapshot.val().username
     //console.log(message);
     //innerText = innerText + "<li>" + message + "</li>";
-    li.appendChild(document.createTextNode(message))
+    li.appendChild(document.createTextNode(`"[${currentUser.username}] ${message}"`))
     ul.appendChild(li);
   });
 });
@@ -48,7 +48,7 @@ rtdb.onValue(titleRef, ss=> {
 var submitHandler = function(eventObject) {
   let message = document.querySelector("#message").value;
   let newObj = {
-    //"username": username,
+    "username": currentUser.username,
     "content": message
   };
   rtdb.push(titleRef, newObj);
@@ -82,12 +82,10 @@ var signOutCallback = function() {
 }
 
 var checkSignInOutCallback = function() {
-  alert("fbauth.currentUser: " + fbauth.currentUser);
-  alert(`"currentUser: ${currentUser} currentUser.email: ${currentUser.email}"`);
-  alert("currentUser: " + currentUser);
+  alert(`"currentUser.username: ${currentUser.username} currentUser.email: ${currentUser.email}"`);
 }
 
-var currentUser = "null";
+var currentUser = null;
 
 fbauth.onAuthStateChanged(auth, user => {
   if (!!user) {
