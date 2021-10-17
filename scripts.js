@@ -57,38 +57,42 @@ var scrollToBottom = function() {
   $(".chat_window").stop().animate({ scrollTop: $(".chat_window")[0].scrollHeight}, 1000);
 }
 
-var signInOrOut = function() {
+var signIn = function() {
+  alert("signing in");
   alert("fbauth.currentUser: " + fbauth.currentUser);
   alert("!!fbauth.currentUser: " + !!fbauth.currentUser);
-  if (fbauth.currentUser) {
-    alert("!!fbauth.currentUser");
-    firebase.auth().signOut().then(function() {
-      // sign-out success
-      console.log("sign out success");
-      alert("sign out success");
-    }).catch(function(error) {
-      // error
-      console.log("sign out error");
-      alert("sign out error");
-    });
-  } else {
-    console.log("signing in");
-    alert("signing in");
-    //fbauth.signInWithRedirect(auth, provider);
-  }
+  //fbauth.signInWithRedirect(auth, provider);
+}
+
+var signOut = function() {
+  alert("signing out");
+  fbauth.signOut().then(function() {
+    // sign-out success
+    console.log("sign out success");
+    alert("sign out success");
+  }).catch(function(error) {
+    // error
+    console.log("sign out error");
+    alert("sign out error");
+  });
 }
 
 fbauth.onAuthStateChanged(auth, user => {
   if (!!user) {
+    // user signed in, so show the app
     console.log(`'Logged in as ${user.email}'`);
     alert(`'Logged in as ${user.email}'`)
-    document.querySelector("#sign_in_button").innerText = "Sign out"    
+    $("#sign_out_button").show();
+    $("#sign_in_button").hide();
   } else {
-    console.log('No user');
-    alert('No user');
-    document.querySelector("#sign_in_button").innerText = "Sign in"
+    // user not signed in, so show login page
+    console.log('No user, showing login');
+    alert('No user, showing login');
+    $("#sign_out_button").hide();
+    $("#sign_in_button").show();
   }
 });
 
-document.querySelector("#sign_in_button").addEventListener("click", signInOrOut);
+document.querySelector("#sign_in_button").addEventListener("click", signIn);
+document.querySelector("#sign_out_button").addEventListener("click", signOut);
 scrollToBottom();
