@@ -66,7 +66,7 @@ var signIn = function() {
 
 var signOut = function() {
   alert("signing out");
-  fbauth.signOut().then(function() {
+  fbauth.auth.signOut().then(function() {
     // sign-out success
     console.log("sign out success");
     alert("sign out success");
