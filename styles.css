@@ -1,0 +1,6 @@
+.chat_window {
+    height:200px; 
+    width:18%; 
+    overflow-y:scroll
+  }
+  
