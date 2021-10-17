@@ -57,8 +57,18 @@ var scrollToBottom = function() {
   $(".chat_window").stop().animate({ scrollTop: $(".chat_window")[0].scrollHeight}, 1000);
 }
 
-var signIn = function() {
-  fbauth.signInWithRedirect(auth, provider);
+var signInOrOut = function() {
+  if (!!fbauth.auth().currentUser) {
+    firebase.auth().signOut().then(function() {
+      // sign-out success
+      console.log("sign out success");
+    }).catch(function(error) {
+      // error
+      console.log("sign out error");
+    });
+  } else {
+    fbauth.signInWithRedirect(auth, provider);
+  }
 }
 
 fbauth.getRedirectResult(auth)
@@ -97,5 +107,5 @@ fbauth.onAuthStateChanged(auth, user => {
   }
 });
 
-document.querySelector("#sign_in_button").addEventListener("click", signIn);
+document.querySelector("#sign_in_button").addEventListener("click", signInOrOut);
 scrollToBottom();
