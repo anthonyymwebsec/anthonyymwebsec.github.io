@@ -83,7 +83,11 @@ var signOutCallback = function() {
 
 var checkSignInOutCallback = function() {
   alert("fbauth.currentUser: " + fbauth.currentUser);
+  alert(`"currentUser: ${currentUser} currentUser.email: ${currentUser.email}"`);
+  alert("currentUser: " + currentUser);
 }
+
+var currentUser = "null";
 
 fbauth.onAuthStateChanged(auth, user => {
   if (!!user) {
@@ -92,6 +96,7 @@ fbauth.onAuthStateChanged(auth, user => {
     alert(`'Logged in as ${user.email}'`)
     $("#sign_out_button").show();
     $("#sign_in_button").hide();
+    currentUser = user;
   } else {
     // user not signed in, so show login page
     console.log('No user, showing login');
