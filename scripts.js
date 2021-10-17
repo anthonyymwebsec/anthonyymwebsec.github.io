@@ -22,7 +22,6 @@ const app = initializeApp(firebaseConfig);
 // Configure auth
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-signInWithRedirect(auth, provider);
 
 // Configure rtdb
 let db = rtdb.getDatabase(app);
@@ -57,4 +56,28 @@ var scrollToBottom = function() {
   $(".chat_window").stop().animate({ scrollTop: $(".chat_window")[0].scrollHeight}, 1000);
 }
 
+var signIn = function() {
+  signInWithRedirect(auth, provider);
+  getRedirectResult(auth)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access Google APIs.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+
+    // The signed-in user info.
+    const user = result.user;
+    console.log(user);
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+}
+
+document.querySelector("#sign_in_button").addEventListener("click", signInWithRedirect(auth, provider));
 scrollToBottom();
