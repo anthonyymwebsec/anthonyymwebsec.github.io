@@ -62,11 +62,13 @@ var renderChatWindow = function(chatroomName) {
         // document.querySelector("#msg_list").innerText = "";
         var chatBox = document.getElementById("chat_window");
         
-        ss.forEach(function(childSnapshot) {
+        
+
+        // ss.forEach(function(childSnapshot) {
           // alert("childSnapshot.val() = " + JSON.stringify(childSnapshot.val()));
           var msgDiv = document.createElement("div");
-          var message = childSnapshot.val().content;
-          var user = childSnapshot.val().displayName;
+          var message = ss.val().content;
+          var user = ss.val().displayName;
           msgDiv.innerHTML = message;
           if (user = currentUser.displayName) {
               msgDiv.classList.add("my_chat");
@@ -75,7 +77,7 @@ var renderChatWindow = function(chatroomName) {
           }
           chatBox.appendChild(msgDiv);  
         });
-      });
+      // });
     }  
   });
 }
