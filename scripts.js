@@ -90,7 +90,7 @@ var checkSignInOutCallback = function() {
 $("#create_room_window").hide();
 
 var createChatRoom = function() {
-  $("#create_room").show();
+  $("#create_room_window").show();
   $("app").hide();
 }
 
