@@ -66,9 +66,11 @@ var renderChatWindow = function(chatroomName) {
         ss.forEach(function(childSnapshot) {
           alert("childSnapshot.val() = " + JSON.stringify(childSnapshot.val()));
           var msgDiv = document.createElement("div");
-          var message = childSnapshot.val().content
-          var user = childSnapshot.val().displayName
-          alert("message: " + message);
+          var key = Object.keys(childSnapshot.val())[0];
+          alert("childSnapshot[key] = " + childSnapshot[key]);
+          var message = childSnapshot[key].content;
+          var user = childSnapshot.val().displayName;
+          // alert("message: " + message);
           msgDiv.innerHTML = message;
           if (user = currentUser.displayName) {
               msgDiv.classList.add("my_chat");
