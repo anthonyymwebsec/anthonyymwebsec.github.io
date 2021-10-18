@@ -51,15 +51,15 @@ var renderChatWindow = function(chatroomName) {
   console.log("rendering chat window");
 
   // reset all child tab's background color to match CSS exact active one 
-  // var roomTabBar = document.getElementById("chatroom_tab");
-  // var roomTabChild = roomTabBar.children();
-  // for (var i=0; i< roomTabChild.length; i++) {
-  //   if (roomTabChild[i].innerHTML==chatroomName) {
-  //     roomTabChild[i].style.backgroundColor="#ddd"
-  //   } else {
-  //     roomTabChild[i].style.backgroundColor="#ccc"
-  //   }
-  // }
+  var roomTabBar = document.getElementById("chatroom_tab");
+  var roomTabChild = roomTabBar.children();
+  for (var i=0; i< roomTabChild.length; i++) {
+    if (roomTabChild[i].innerHTML==chatroomName) {
+      roomTabChild[i].style.backgroundColor="#ddd"
+    } else {
+      roomTabChild[i].style.backgroundColor="#ccc"
+    }
+  }
 
   $("#app").show();
 
@@ -213,7 +213,7 @@ fbauth.onAuthStateChanged(auth, user => {
 
 document.querySelector("#sign_in_button").addEventListener("click", signIn);
 document.querySelector("#sign_out_button").addEventListener("click", signOutCallback);
-document.querySelector("#signin_status_button").addEventListener("click", checkSignInOutCallback);
+// document.querySelector("#signin_status_button").addEventListener("click", checkSignInOutCallback);
 document.querySelector("#create_room").addEventListener("click", createChatRoom);
 document.querySelector("#create_room_submit").addEventListener("click", createChatRoomSubmit);
 document.querySelector("#join_room_button").addEventListener("click", joinRoomCallback);
