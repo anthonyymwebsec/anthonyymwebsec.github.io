@@ -34,6 +34,7 @@ rtdb.get(chatroomRef).then((snapshot) => {
     console.log("snapshot.val() = " + JSON.stringify(snapshot.val()));
     snapshot.forEach(function(room) {
       addChatTab(room.val().chatroom_name);
+      console.log("room.child('users').size = " + room.child("users").size);
     });
   }
 });
