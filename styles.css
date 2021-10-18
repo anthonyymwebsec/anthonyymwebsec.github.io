@@ -11,19 +11,19 @@ body {font-family: Arial;}
 }
 
 .my_chat {
-  position: absolute;
+  /* position: absolute; */
   right: 0px;
   border-radius: 4px;
   background-color: #AFF7EB;
   padding: 2px;
   height: 10px;
-  text-align: left;
+  text-align: right;
   margin-top: 3px;
   margin-bottom: 3px;
 }
 
 .others_chat {
-  position: absolute;
+  /* position: absolute; */
   border-radius: 4px;
   background-color: #CEF7AF;
   padding: 2px;
