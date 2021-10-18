@@ -91,7 +91,7 @@ $("#create_room_window").hide();
 
 var createChatRoom = function() {
   $("#create_room_window").show();
-  $("app").hide();
+  $("#app").hide();
 }
 
 var createChatRoomSubmit = function() {  
@@ -101,24 +101,23 @@ var createChatRoomSubmit = function() {
   if (name.trim() === "") {
     alert("Please enter a chatroom name.")
     return;
+  } else {
+    rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(name))).then((snapshot) => {
+      if (snapshot.exists()) {
+        alert("This chatroom name already exists.");
+        return;
+      } else {
+        let newObj = {
+          "chatroom_name": name,
+          "owner": currentUser.uid,
+          "users": currentUser.uid,
+          "requesters": []
+        };
+        rtdb.push(titleRef, newObj);      
+      }
+    });
   }
-
-  rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(name))).then((snapshot) => {
-    if (snapshot.exists()) {
-      alert("This chatroom name already exists.");
-      return;
-    }
-  });
-
-  let newObj = {
-    "chatroom_name": name,
-    "owner": currentUser.uid,
-    "users": currentUser.uid,
-    "requesters": []
-  };
-  rtdb.push(titleRef, newObj);
-
-  $("app").show();
+  $("#app").show();
 }
 
 var currentUser = null;
