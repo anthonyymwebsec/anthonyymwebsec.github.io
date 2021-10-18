@@ -47,6 +47,14 @@ rtdb.onValue(titleRef, ss=> {
   });
 });
 
+let titleRef = rtdb.ref(db, "/chatRoom/");
+rtdb.onValue(titleRef, ss=> {
+  ss.forEach(function(childSnapshot) {
+    var chatroomName = childSnapshot.val().chatroom_name;
+    addChatTab(chatroomName);
+  });
+});
+
 var addChatTab = function(chatroomName) {
   var msgDiv = document.createElement("button");
   msgDiv.classList.add("tablinks");
