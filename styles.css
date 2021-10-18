@@ -63,7 +63,7 @@ body {font-family: Arial;}
 
 /* Create an active/current tablink class */
 .tab button.active {
-  background-color: #ccc;
+  background-color: #ddd;
 }
 
  
@@ -76,12 +76,12 @@ form.msg_form input[type=text] {
   padding: 10px;
   font-size: 17px;
   border-radius: 5px;
-  width: 75%;
+  width: 80%;
   border: 1px solid grey;
   float: left;
   background: #f1f1f1;
   margin-right: 10px;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 /* Style the submit button */
@@ -102,7 +102,7 @@ form.msg_form button {
 }
 
 form.msg_form button:hover {
-  background: #0b7dda;
+  background: #000;
 }
 
 /* Clear floats */
@@ -114,7 +114,7 @@ form.msg_form::after {
 
 /* CSS for top bar */
 .navbar {
-  width: 95%;
+  width: 100%;
   background-color: #555;
   color: white;
   font-size: 30px;

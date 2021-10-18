@@ -49,6 +49,18 @@ var chatRef = "";
 
 var renderChatWindow = function(chatroomName) {
   console.log("rendering chat window");
+
+  // reset all child tab's background color to match CSS exact active one 
+  // var roomTabBar = document.getElementById("chatroom_tab");
+  // var roomTabChild = roomTabBar.children();
+  // for (var i=0; i< roomTabChild.length; i++) {
+  //   if (roomTabChild[i].innerHTML==chatroomName) {
+  //     roomTabChild[i].style.backgroundColor="#ddd"
+  //   } else {
+  //     roomTabChild[i].style.backgroundColor="#ccc"
+  //   }
+  // }
+
   $("#app").show();
 
   // remove all existing message node from the chat window div
