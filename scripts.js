@@ -48,14 +48,15 @@ rtdb.onValue(titleRef, ss=> {
 });
 
 let chatroomRef = rtdb.ref(db, "/chatRoom/");
-rtdb.get(child(chatroomRef)).then((snapshot) => {
+
+rtdb.get(chatroomRef).then((snapshot) => {
   if (snapshot.exists()) {
     console.log("snapshot.val() = " + snapshot.val());
     snapshot.val().forEach(function(room) {
       addChatTab(room.chatroomName);
     });
   }
-})
+});
 
 // rtdb.onValue(chatroomRef, ss=> {
 //   ss.forEach(function(childSnapshot) {
