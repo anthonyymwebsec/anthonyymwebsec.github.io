@@ -1,7 +1,6 @@
 body {font-family: Arial;}
 
 .chat_window {
-  display: none;
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #f2f2f2;

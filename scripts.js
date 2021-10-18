@@ -170,14 +170,12 @@ fbauth.onAuthStateChanged(auth, user => {
   if (!!user) {
     // user signed in, so show the app
     console.log(`'Logged in as ${user.email}'`);
-    $("#app").show();
     $("#sign_out_button").show();
     $("#sign_in_button").hide();
     currentUser = user;
   } else {
     // user not signed in, so show login page
     console.log('No user, showing login');
-    $("#app").hide()
     $("#sign_out_button").hide();
     $("#sign_in_button").show();
   }
