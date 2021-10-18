@@ -51,7 +51,7 @@ let chatroomRef = rtdb.ref(db, "/chatRoom/");
 
 rtdb.get(chatroomRef).then((snapshot) => {
   if (snapshot.exists()) {
-    alert(JSON.stringify("snapshot.val() = " + snapshot.val()));
+    alert("snapshot.val() = " + JSON.stringify(snapshot.val()));
     snapshot.val().forEach(function(room) {
       addChatTab(room.chatroomName);
     });
