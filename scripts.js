@@ -64,7 +64,6 @@ var renderChatWindow = function(chatroomName) {
       chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/chats/");
 
       rtdb.onChildAdded(chatRef, ss => {
-        var chatBox = document.getElementById("chat_window");
         // ss.forEach(function(childSnapshot) {
           // alert("childSnapshot.val() = " + JSON.stringify(childSnapshot.val()));
           var message = ss.val().content;
