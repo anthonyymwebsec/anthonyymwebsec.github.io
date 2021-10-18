@@ -71,7 +71,7 @@ var renderChatWindow = function(chatroomName) {
           var uid = ss.val().uid;
           var msgDiv = document.createElement("div"); 
           msgDiv.innerHTML = message;
-          if (uid = currentUser.uid) {
+          if (uid == currentUser.uid) {
               msgDiv.classList.add("my_chat");
           } else {
               msgDiv.classList.add("others_chat");
@@ -172,7 +172,7 @@ var createChatRoomSubmit = function() {
 }
 
 var joinRoomCallback = function() {
-  
+
 }
 
 var currentUser = null;
