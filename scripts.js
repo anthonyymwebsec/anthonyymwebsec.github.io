@@ -76,8 +76,8 @@ var renderChatWindow = function(chatroomName) {
           } else {
               msgDiv.classList.add("others_chat");
           }
-          chatBox.appendChild(msgDiv);  
-        });
+          chatBox.appendChild(msgDiv);
+      });
       // });
     }  
   });
@@ -171,6 +171,10 @@ var createChatRoomSubmit = function() {
   $("#app").show();
 }
 
+var joinRoomCallback = function() {
+  
+}
+
 var currentUser = null;
 fbauth.onAuthStateChanged(auth, user => {
   if (!!user) {
@@ -192,4 +196,5 @@ document.querySelector("#sign_out_button").addEventListener("click", signOutCall
 document.querySelector("#signin_status_button").addEventListener("click", checkSignInOutCallback);
 document.querySelector("#create_room").addEventListener("click", createChatRoom);
 document.querySelector("#create_room_submit").addEventListener("click", createChatRoomSubmit);
+document.querySelector("#join_room_button").addEventListener("click", joinRoomCallback);
 scrollToBottom();
