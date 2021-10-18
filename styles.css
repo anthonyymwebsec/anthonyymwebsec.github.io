@@ -75,7 +75,8 @@ body {font-family: Arial;}
 form.msg_form input[type=text] {
   padding: 10px;
   font-size: 17px;
-  border-radius: 10px;
+  border-radius: 5px;
+  width: 75%;
   border: 1px solid grey;
   float: left;
   background: #f1f1f1;
@@ -113,8 +114,12 @@ form.msg_form::after {
 
 /* CSS for top bar */
 .navbar {
-  width: 100%;
+  width: 95%;
   background-color: #555;
+  color: white;
+  font-size: 30px;
+  padding: 5px 4px 5px 10px;
+  text-decoration: none;
   overflow: auto;
 }
 
