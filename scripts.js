@@ -49,6 +49,20 @@ var chatRef = "";
 
 var renderChatWindow = function(chatroomName) {
   console.log("rendering chat window");
+
+  $("#create_room_window").hide();
+
+  // reset all child tab's background color to match CSS exact active one 
+  var roomTabBar = document.getElementById("chatroom_tab");
+  var roomTabChild = roomTabBar.children;
+  for (var i=0; i< roomTabChild.length; i++) {
+    if (roomTabChild[i].innerHTML==chatroomName) {
+      roomTabChild[i].style.backgroundColor="#ccc"
+    } else {
+      roomTabChild[i].style.backgroundColor="#f1f1f1"
+    }
+  }
+
   $("#app").show();
 
   // remove all existing message node from the chat window div
@@ -75,11 +89,12 @@ var renderChatWindow = function(chatroomName) {
           var user = ss.val().displayName;
           var uid = ss.val().uid;
           var msgDiv = document.createElement("div"); 
-          msgDiv.innerHTML = message;
           if (uid == currentUser.uid) {
+            msgDiv.innerHTML = message;
               msgDiv.classList.add("my_chat");
           } else {
-              msgDiv.classList.add("others_chat");
+            msgDiv.innerHTML = "<i>" + user + "</i> " + message;
+            msgDiv.classList.add("others_chat");
           }
           chatBox.appendChild(msgDiv);
       });
@@ -201,7 +216,7 @@ fbauth.onAuthStateChanged(auth, user => {
 
 document.querySelector("#sign_in_button").addEventListener("click", signIn);
 document.querySelector("#sign_out_button").addEventListener("click", signOutCallback);
-document.querySelector("#signin_status_button").addEventListener("click", checkSignInOutCallback);
+// document.querySelector("#signin_status_button").addEventListener("click", checkSignInOutCallback);
 document.querySelector("#create_room").addEventListener("click", createChatRoom);
 document.querySelector("#create_room_submit").addEventListener("click", createChatRoomSubmit);
 document.querySelector("#join_room_button").addEventListener("click", joinRoomCallback);

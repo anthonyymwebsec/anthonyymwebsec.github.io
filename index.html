@@ -7,7 +7,12 @@
 	<link rel='stylesheet' href='styles.css'>
 	<script src="scripts.js" type="module"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+	<div class="navbar">Chat Rooms
+		<button id="sign_in_button">Login</button>
+		<button id="sign_out_button">Logout</button>
+		<button id="join_room_button">Join chatroom</button>
+		<button id="create_room">Create chatroom</button>
+	</div>
 </head>
 
 <body>
@@ -26,16 +31,19 @@
 		</div>
 	</div>
 
-	<button id="sign_in_button">Sign in</button>
+	<!-- <button id="sign_in_button">Sign in</button>
 	<button id="sign_out_button">Sign out</button>
-	<button id="signin_status_button">Check signin status</button>
+	<button id="signin_status_button">Check signin status</button> -->
 
-	<button id="join_room_button">Join chatroom</button>
-	<button id="create_room">Create chatroom</button>
+
 	<div id="create_room_window">
-		<label>Enter chatroom name:</label><br>
+		<form class="msg_form">
+			<input type="text" id="chartroom_name" placeholder="Enter chat room name">
+			<button id="create_room_submit">Create</button>
+		</form>
+		<!-- <label>Enter chatroom name:</label><br>
 		<input type="text" id="chatroom_name"><br>
-		<button id="create_room_submit">Create</button>
+		<button id="create_room_submit">Create</button> -->
 	</div>
 
 </body>

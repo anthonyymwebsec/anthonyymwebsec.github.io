@@ -1,5 +1,6 @@
 body {font-family: Arial;}
 
+/* chat window CSS */
 .chat_window {
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -9,32 +10,37 @@ body {font-family: Arial;}
   overflow-y:auto;
   margin-top: 10px;
   margin-bottom: 10px;
+  display: inline-flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
 }
 
 .my_chat {
   /* position: absolute; */
   right: 0px;
-  border-radius: 4px;
-  background-color: #AFF7EB;
-  padding: 2px;
-  height: 20px;
+  border-radius: 6px;
+  background-color: #d9e7f7;
+  padding: 4px;
+  min-height: 40px;
   text-align: right;
+  float: right;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
 .others_chat {
   /* position: absolute; */
-  border-radius: 4px;
-  background-color: #CEF7AF;
-  padding: 2px;
-  height: 20px;
+  border-radius: 6px;
+  background-color: #949497;
+  padding: 4px;
+  min-height: 40px;
   text-align: left;
+  float: left;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-/* Style the tab */
+/* Style the tab for chat=room navigation bar */
 .tab {
   overflow: hidden;
   border: 1px solid #ccc;
@@ -73,35 +79,35 @@ body {font-family: Arial;}
 
 /* Style the search field */
 form.msg_form input[type=text] {
-  padding: 10px;
-  font-size: 17px;
-  border-radius: 10px;
-  border: 1px solid grey;
   float: left;
+  width: 78%;
+  padding: 10px;
   background: #f1f1f1;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  margin-top: 10px;
   margin-right: 10px;
-  margin-top: 30px;
 }
 
 /* Style the submit button */
 form.msg_form button {
-  float: left;
+  float: right;
   width: 20%;
   padding: 10px;
-  background: #2196F3;
+  background-color: #04AA6D;
   color: white;
   font-size: 17px;
   border: 1px solid grey;
-  border-radius: 10px;
+  border-radius: 5px;
   border-left: none; /* Prevent double borders */
   cursor: pointer;
+  margin-top: 10px;
   margin-left: 10px;
-  margin-top: 30px;
-
 }
 
 form.msg_form button:hover {
-  background: #0b7dda;
+  background: #000;
 }
 
 /* Clear floats */
@@ -110,3 +116,32 @@ form.msg_form::after {
   clear: both;
   display: table;
 }
+
+/* CSS for top bar */
+.navbar {
+  width: 100%;
+  background-color: #555;
+  color: white;
+  font-size: 30px;
+  padding: 5px 4px 5px 10px;
+  text-decoration: none;
+  overflow: auto;
+}
+
+.navbar button {
+  float: right;
+  padding: 12px;
+  color: white;
+  background-color:#04AA6D;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar button:hover {
+  background-color: #000;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+/* enf of top bar CSS */
