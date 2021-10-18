@@ -59,7 +59,7 @@ var renderChatWindow = function(chatroomName) {
 
   let titleRef = rtdb.ref(db, "/chatRoom/");
 
-  rtdb.get(rtdb.query(titleRef, rtdb.equalTo(chatroomName))).then((snapshot) => {
+  rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
       var firstKey = Object.keys(snapshot.val())[0];
       chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/chats/");
