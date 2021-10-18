@@ -55,7 +55,7 @@ var renderChatWindow = function(chatroomName) {
       var firstKey = Object.keys(snapshot.val())[0];
       alert("firstKey: " + firstKey);
 
-      let chatRef = snapshot.child(firstKey).ref;
+      let chatRef = rtdb.ref(db, `"/chatRoom/${firstKey}/chats/"`);
       alert("chatRef: " + chatRef);
 
       rtdb.onValue(chatRef, ss => {
@@ -67,8 +67,8 @@ var renderChatWindow = function(chatroomName) {
           alert("childSnapshot.val() = " + JSON.stringify(childSnapshot.val()));
           var msgDiv = document.createElement("div");
           var key = Object.keys(childSnapshot.val())[0];
-          alert("childSnapshot[key] = " + childSnapshot[key]);
-          var message = childSnapshot[key].content;
+          // alert("childSnapshot[key] = " + childSnapshot[key]);
+          var message = childSnapshot.val().content;
           var user = childSnapshot.val().displayName;
           // alert("message: " + message);
           msgDiv.innerHTML = message;
