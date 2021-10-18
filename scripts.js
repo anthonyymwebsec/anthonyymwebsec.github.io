@@ -55,8 +55,8 @@ rtdb.get(chatroomRef).then((snapshot) => {
     snapshot.forEach(function(room) {
       console.log("room = " + room);
       console.log("room.val() = " + room.val());
-      console.log("room.val().chatroomName = " + room.val().chatroomName);
-      addChatTab(room.val().chatroomName);
+      console.log("room.val().chatroomName = " + room.val().chatroom_name);
+      addChatTab(room.val().chatroom_name);
     });
   }
 });
