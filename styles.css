@@ -10,7 +10,7 @@ body {font-family: Arial;}
   overflow-y:auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   flex-wrap: nowrap;
 }
@@ -19,14 +19,13 @@ body {font-family: Arial;}
   /* position: absolute; */
   right: 0px;
   border-radius: 6px;
-  background-color: #bfd6f3;
+  background-color: #d9e7f7;
   padding: 4px;
   min-height: 40px;
   text-align: right;
   float: right;
   margin-top: 5px;
   margin-bottom: 5px;
-  max-width: 80%;
 }
 
 .others_chat {
@@ -39,7 +38,6 @@ body {font-family: Arial;}
   float: left;
   margin-top: 5px;
   margin-bottom: 5px;
-  max-width: 80%;
 }
 
 /* Style the tab for chat=room navigation bar */
