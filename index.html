@@ -8,15 +8,16 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-	<div class="chat_window">
-	  <ul id="msg_list">
-		<li>Loading....</li>
-	  </ul>
+	<div id="app">
+		<div class="chat_window">
+			<ul id="msg_list">
+			  <li>Loading....</li>
+			</ul>
+		</div>
+		<label for="message">Message:</label><br>
+		<input type="text" id="message" name="message"><br>
+		<button id="submit_button">Submit</button>
 	</div>
-  
-	<label for="message">Message:</label><br>
-	<input type="text" id="message" name="message"><br>
-	<button id="submit_button">Submit</button>
 	<button id="sign_in_button">Sign in</button>
 	<button id="sign_out_button">Sign out</button>
 	<button id="signin_status_button">Check signin status</button>

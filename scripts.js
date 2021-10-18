@@ -64,8 +64,6 @@ var scrollToBottom = function() {
 var signIn = function() {
   alert("signing in");
   fbauth.signInWithRedirect(auth, provider);
-  alert("fbauth.currentUser: " + fbauth.currentUser);
-  alert("!!fbauth.currentUser: " + !!fbauth.currentUser);
 }
 
 var signOutCallback = function() {
@@ -94,6 +92,7 @@ fbauth.onAuthStateChanged(auth, user => {
     // user signed in, so show the app
     console.log(`'Logged in as ${user.email}'`);
     alert(`'Logged in as ${user.email}'`)
+    $("#app").show();
     $("#sign_out_button").show();
     $("#sign_in_button").hide();
     currentUser = user;
@@ -101,6 +100,7 @@ fbauth.onAuthStateChanged(auth, user => {
     // user not signed in, so show login page
     console.log('No user, showing login');
     alert('No user, showing login');
+    $("#app").hide()
     $("#sign_out_button").hide();
     $("#sign_in_button").show();
   }
