@@ -16,7 +16,7 @@ body {font-family: Arial;}
   /* position: absolute; */
   right: 0px;
   border-radius: 6px;
-  background-color: #AFF7EB;
+  background-color: #bfd6f3;
   padding: 4px;
   height: 40px;
   text-align: right;
@@ -27,7 +27,7 @@ body {font-family: Arial;}
 .others_chat {
   /* position: absolute; */
   border-radius: 6px;
-  background-color: #CEF7AF;
+  background-color: #949497;
   padding: 4px;
   height: 40px;
   text-align: left;
