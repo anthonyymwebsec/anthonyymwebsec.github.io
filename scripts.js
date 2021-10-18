@@ -39,7 +39,11 @@ rtdb.onValue(titleRef, ss=> {
     var message = childSnapshot.val().content
     var user = childSnapshot.val().displayName
     msgDiv.innerHTML = message;
-    msgDiv.classList.add("others_chat");
+    if (user = currentUser.displayName) {
+        msgDiv.classList.add("my_chat");
+    } else {
+        msgDiv.classList.add("others_chat");
+    }
     chatBox.appendChild(msgDiv);  
   });
 });

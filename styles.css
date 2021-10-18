@@ -1,4 +1,36 @@
 .chat_window {
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    height:200px; 
+    width:18%; 
+    overflow-y:scroll
+  }
+  
+.my_chat {
+    position: absolute;
+    right: 0px;
+    border-radius: 4px;
+    background-color: #AFF7EB;
+    padding: 2px;
+    height: 20px;
+    text-align: right;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.others_chat {
+    position: absolute;
+    border-radius: 4px;
+    background-color: #CEF7AF;
+    padding: 2px;
+    height: 20px;
+    text-align: left;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+   
+#room_buttons {
   border-radius: 10px;
   background-color: #f2f2f2;
   padding: 20px;
@@ -6,27 +38,3 @@
   width:18%; 
   overflow-y:scroll
 }
-
-.my_chat {
-  pisition: absolute;
-  right: 0px;
-  border-radius: 4px;
-  background-color: #AFF7EB;
-  padding: 2px;
-  height: 20px;
-  text-align: left;
-  margin-top: 3px;
-  margin-bottom: 3px;
-}
-
-.others_chat {
-  pisition: absolute;
-  border-radius: 4px;
-  background-color: #CEF7AF;
-  padding: 2px;
-  height: 20px;
-  text-align: left;
-  margin-top: 3px;
-  margin-bottom: 3px;
-}
- 
