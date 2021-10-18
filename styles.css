@@ -23,7 +23,7 @@ body {font-family: Arial;}
   margin-top: 5px;
   margin-bottom: 5px;
   display: inline-flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   max-width: 80;
 }
@@ -38,7 +38,7 @@ body {font-family: Arial;}
   margin-top: 5px;
   margin-bottom: 5px;
   display: inline-flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   max-width: 80;
 }
