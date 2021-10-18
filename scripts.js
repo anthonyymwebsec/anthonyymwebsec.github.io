@@ -48,12 +48,21 @@ rtdb.onValue(titleRef, ss=> {
 });
 
 let chatroomRef = rtdb.ref(db, "/chatRoom/");
-rtdb.onValue(chatroomRef, ss=> {
-  ss.forEach(function(childSnapshot) {
-    var chatroomName = childSnapshot.val().chatroom_name;
-    addChatTab(chatroomName);
-  });
-});
+rtdb.get(child(chatroomRef)).then((snapshot) => {
+  if (snapshot.exists()) {
+    console.log("snapshot.val() = " + snapshot.val());
+    snapshot.val().forEach(function(room) {
+      addChatTab(room.chatroomName);
+    });
+  }
+})
+
+// rtdb.onValue(chatroomRef, ss=> {
+//   ss.forEach(function(childSnapshot) {
+//     var chatroomName = childSnapshot.val().chatroom_name;
+//     addChatTab(chatroomName);
+//   });
+// });
 
 var addChatTab = function(chatroomName) {
   var msgDiv = document.createElement("button");
