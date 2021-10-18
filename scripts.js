@@ -54,10 +54,8 @@ var renderChatWindow = function(chatroomName) {
     if (snapshot.exists()) {
       var firstKey = Object.keys(snapshot.val())[0];
       alert("firstKey: " + firstKey);
-      // alert("JSON.stringify(snapshot.val()): " + JSON.stringify(snapshot.val()));
-      var chatroomKey = snapshot.child("chatroom_name").key;
 
-      let chatRef = snapshot.child("chats").ref;
+      let chatRef = snapshot.child(firstKey).ref;
       alert("chatRef: " + chatRef);
 
       rtdb.onValue(chatRef, ss => {
