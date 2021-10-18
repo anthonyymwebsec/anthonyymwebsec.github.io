@@ -118,7 +118,7 @@ var submitHandler = function(eventObject) {
 document.querySelector("#submit_button").addEventListener("click", submitHandler);
 
 var scrollToBottom = function() {
-  $("#chat_window").stop().animate({ scrollTop: $("#chat_window")[0].scrollHeight}, 1000);
+  // $("#chat_window").stop().animate({ scrollTop: $("#chat_window")[0].scrollHeight}, 1000);
 }
 
 var signIn = function() {
