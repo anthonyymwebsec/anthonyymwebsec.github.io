@@ -63,6 +63,7 @@ var renderChatWindow = function(chatroomName) {
     if (snapshot.exists()) {
       var firstKey = Object.keys(snapshot.val())[0];
       chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/chats/");
+      console.log("snapshot exists for chatRef = " + chatRef);
 
       rtdb.onChildAdded(chatRef, ss => {
         console.log("onChildAdded with ss = " + JSON.stringify(ss.val()));
