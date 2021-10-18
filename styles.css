@@ -88,7 +88,7 @@ form.msg_form button {
   float: left;
   width: 20%;
   padding: 10px;
-  background: #2196F3;
+  background-color: #04AA6D;
   color: white;
   font-size: 17px;
   border: 1px solid grey;
@@ -110,3 +110,28 @@ form.msg_form::after {
   clear: both;
   display: table;
 }
+
+/* CSS for top bar */
+.navbar {
+  width: 100%;
+  background-color: #555;
+  overflow: auto;
+}
+
+.navbar button {
+  float: right;
+  padding: 12px;
+  color: white;
+  background-color:#04AA6D;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar button:hover {
+  background-color: #000;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+/* enf of top bar CSS */
