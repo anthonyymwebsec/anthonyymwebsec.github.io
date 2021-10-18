@@ -55,9 +55,9 @@ var renderChatWindow = function(chatroomName) {
   var roomTabChild = roomTabBar.children();
   for (var i=0; i< roomTabChild.length; i++) {
     if (roomTabChild[i].innerHTML==chatroomName) {
-      roomTabChild[i].style.backgroundColor="#ddd"
-    } else {
       roomTabChild[i].style.backgroundColor="#ccc"
+    } else {
+      roomTabChild[i].style.backgroundColor="#ddd"
     }
   }
 
