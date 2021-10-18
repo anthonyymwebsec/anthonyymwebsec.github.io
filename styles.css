@@ -26,6 +26,7 @@ body {font-family: Arial;}
   float: right;
   margin-top: 5px;
   margin-bottom: 5px;
+  width: 100%;
 }
 
 .others_chat {
@@ -38,6 +39,7 @@ body {font-family: Arial;}
   float: left;
   margin-top: 5px;
   margin-bottom: 5px;
+  width: 100%;
 }
 
 /* Style the tab for chat=room navigation bar */
@@ -78,7 +80,7 @@ body {font-family: Arial;}
 }
 
 /* Style the search field */
-form.msg_form input[type=text] {
+.msg_form input[type=text] {
   float: left;
   width: 78%;
   padding: 10px;
@@ -91,7 +93,7 @@ form.msg_form input[type=text] {
 }
 
 /* Style the submit button */
-form.msg_form button {
+.msg_form button {
   float: right;
   width: 20%;
   padding: 10px;
@@ -106,12 +108,12 @@ form.msg_form button {
   margin-left: 10px;
 }
 
-form.msg_form button:hover {
+.msg_form button:hover {
   background: #000;
 }
 
 /* Clear floats */
-form.msg_form::after {
+.msg_form::after {
   content: "";
   clear: both;
   display: table;
