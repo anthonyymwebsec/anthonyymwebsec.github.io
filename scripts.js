@@ -82,7 +82,7 @@ var addChatTab = function(chatroomName) {
   msgDiv.innerHTML = chatroomName;
   msgDiv.id = chatroomName;
   msgDiv.onclick = function() {
-    alert(chatroomName);
+    renderChatWindow(chatroomName);
   }
 
   var chatTab = document.getElementById("chatroom_tab");
