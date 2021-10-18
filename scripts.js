@@ -46,7 +46,7 @@ rtdb.get(chatroomRef).then((snapshot) => {
 // });
 
 var renderChatWindow = function(chatroomName) {
-  $("#" + chatroomName).show();
+  $("#chat_window").show();
 
   let titleRef = rtdb.ref(db, "/chatRoom/");
 
