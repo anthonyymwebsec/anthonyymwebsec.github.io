@@ -37,10 +37,10 @@ rtdb.onValue(titleRef, ss=> {
     var ul = document.getElementById("msg_list");
     var li = document.createElement("li");
     var message = childSnapshot.val().content
-    var user = childSnapshot.val().username
+    var user = childSnapshot.val().displayName
     //console.log(message);
     //innerText = innerText + "<li>" + message + "</li>";
-    li.appendChild(document.createTextNode(`"[${currentUser.username}] ${message}"`))
+    li.appendChild(document.createTextNode(`"[${currentUser.displayName}] ${message}"`))
     ul.appendChild(li);
   });
 });
@@ -48,7 +48,7 @@ rtdb.onValue(titleRef, ss=> {
 var submitHandler = function(eventObject) {
   let message = document.querySelector("#message").value;
   let newObj = {
-    "username": currentUser.username,
+    "displayName": currentUser.displayName,
     "content": message
   };
   rtdb.push(titleRef, newObj);
@@ -82,7 +82,9 @@ var signOutCallback = function() {
 }
 
 var checkSignInOutCallback = function() {
-  alert(`"currentUser.username: ${currentUser.username} currentUser.email: ${currentUser.email}"`);
+  alert(`"currentUser.displayName: ${currentUser.displayName} currentUser.email: ${currentUser.email}"`);
+  alert((JSON.stringify(currentUser))
+  )
 }
 
 var currentUser = null;
