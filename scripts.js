@@ -47,6 +47,18 @@ rtdb.onValue(titleRef, ss=> {
   });
 });
 
+var addChatTab = function(chatroomName) {
+  var msgDiv = document.createElement("button");
+  msgDiv.classList.add("tablinks");
+  msgDiv.innerHTML = chatroomName;
+  msgDiv.onclick = function() {
+    alert(chatroomName);
+  }
+
+  var chatTab = document.getElementById("chatroom_tab");
+  chatTab.appendChild(msgDiv)
+}
+
 var submitHandler = function(eventObject) {
   let message = document.querySelector("#message").value;
   let newObj = {
@@ -113,7 +125,8 @@ var createChatRoomSubmit = function() {
           "users": currentUser.uid,
           "requesters": []
         };
-        rtdb.push(titleRef, newObj);      
+        rtdb.push(titleRef, newObj);
+        addChatTab(name);
       }
     });
   }
