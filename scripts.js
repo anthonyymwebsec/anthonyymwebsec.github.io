@@ -52,6 +52,8 @@ var renderChatWindow = function(chatroomName) {
 
   rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
+      var firstKey = Object.keys(snapshot.val())[0];
+      alert("firstKey: " + firstKey);
       // alert("JSON.stringify(snapshot.val()): " + JSON.stringify(snapshot.val()));
       var chatroomKey = snapshot.child("chatroom_name").key;
 
