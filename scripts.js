@@ -31,7 +31,7 @@ let peopleRef = rtdb.child(titleRef, "people");
 // let user = firebase.UserInfo.displayName;
 
 rtdb.onValue(titleRef, ss=> {
-  document.querySelector("#msg_list").innerText = "";
+  // document.querySelector("#msg_list").innerText = "";
   var chatBox = document.getElementById("chat_window");
   
   ss.forEach(function(childSnapshot) {
