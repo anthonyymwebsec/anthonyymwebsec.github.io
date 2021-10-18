@@ -67,6 +67,7 @@ var renderChatWindow = function(chatroomName) {
       console.log("snapshot exists for chatRef = " + chatRef);
 
       rtdb.onChildAdded(chatRef, ss => {
+        $("#chat_window").empty();
         console.log("onChildAdded with ss = " + JSON.stringify(ss.val()));
         // ss.forEach(function(childSnapshot) {
           // alert("childSnapshot.val() = " + JSON.stringify(childSnapshot.val()));
