@@ -99,7 +99,6 @@ fbauth.onAuthStateChanged(auth, user => {
   } else {
     // user not signed in, so show login page
     console.log('No user, showing login');
-    alert('No user, showing login');
     $("#app").hide()
     $("#sign_out_button").hide();
     $("#sign_in_button").show();
