@@ -48,6 +48,7 @@ $("#app").hide();
 var chatRef = "";
 
 var renderChatWindow = function(chatroomName) {
+  console.log("rendering chat window");
   $("#app").show();
 
   // remove all existing message node from the chat window div
