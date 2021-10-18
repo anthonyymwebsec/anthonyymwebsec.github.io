@@ -40,7 +40,7 @@ rtdb.onValue(titleRef, ss=> {
     var user = childSnapshot.val().displayName
     //console.log(message);
     //innerText = innerText + "<li>" + message + "</li>";
-    li.appendChild(document.createTextNode(`"[${currentUser.displayName}] ${message}"`))
+    li.appendChild(document.createTextNode(`"[${user}] ${message}"`))
     ul.appendChild(li);
   });
 });
