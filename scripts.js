@@ -26,26 +26,6 @@ const provider = new fbauth.GoogleAuthProvider();
 
 // Configure rtdb
 let db = rtdb.getDatabase(app);
-let titleRef = rtdb.ref(db, "/chatRoom/room1/");
-// let user = firebase.UserInfo.displayName;
-
-rtdb.onValue(titleRef, ss=> {
-  // document.querySelector("#msg_list").innerText = "";
-  var chatBox = document.getElementById("chat_window");
-  
-  ss.forEach(function(childSnapshot) {
-    var msgDiv = document.createElement("div");
-    var message = childSnapshot.val().content
-    var user = childSnapshot.val().displayName
-    msgDiv.innerHTML = message;
-    if (user = currentUser.displayName) {
-        msgDiv.classList.add("my_chat");
-    } else {
-        msgDiv.classList.add("others_chat");
-    }
-    chatBox.appendChild(msgDiv);  
-  });
-});
 
 let chatroomRef = rtdb.ref(db, "/chatRoom/");
 
@@ -53,9 +33,6 @@ rtdb.get(chatroomRef).then((snapshot) => {
   if (snapshot.exists()) {
     console.log("snapshot.val() = " + JSON.stringify(snapshot.val()));
     snapshot.forEach(function(room) {
-      console.log("room = " + room);
-      console.log("room.val() = " + room.val());
-      console.log("room.val().chatroomName = " + room.val().chatroom_name);
       addChatTab(room.val().chatroom_name);
     });
   }
@@ -68,10 +45,42 @@ rtdb.get(chatroomRef).then((snapshot) => {
 //   });
 // });
 
+var renderChatWindow = function(chatroomName) {
+  $("#" + chatroomName).show();
+
+  let titleRef = rtdb.ref(db, "/chatRoom/");
+
+  rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
+    if (snapshot.exists()) {
+      var chatroomKey = snapshot.key;
+      alert("key: " + chatroomKey);
+    }  
+  });
+
+  rtdb.onValue(titleRef, ss=> {
+    // document.querySelector("#msg_list").innerText = "";
+    var chatBox = document.getElementById("chat_window");
+    
+    ss.forEach(function(childSnapshot) {
+      var msgDiv = document.createElement("div");
+      var message = childSnapshot.val().content
+      var user = childSnapshot.val().displayName
+      msgDiv.innerHTML = message;
+      if (user = currentUser.displayName) {
+          msgDiv.classList.add("my_chat");
+      } else {
+          msgDiv.classList.add("others_chat");
+      }
+      chatBox.appendChild(msgDiv);  
+    });
+  });
+}
+
 var addChatTab = function(chatroomName) {
   var msgDiv = document.createElement("button");
   msgDiv.classList.add("tablinks");
   msgDiv.innerHTML = chatroomName;
+  msgDiv.id = chatroomName;
   msgDiv.onclick = function() {
     alert(chatroomName);
   }
