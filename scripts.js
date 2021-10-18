@@ -195,7 +195,16 @@ var createChatRoomSubmit = function() {
 }
 
 var joinRoomCallback = function() {
+  $("#join_room_window").show();
+  $("#app").hide();
+}
 
+var joinRoomSubmit = function() {
+  let name = document.querySelector("#join_chatroom_name").value;
+  if (name.trim() === "") {
+    alert("Please enter a chatroom name.")
+    return;
+  }
 }
 
 var currentUser = null;
@@ -220,4 +229,5 @@ document.querySelector("#sign_out_button").addEventListener("click", signOutCall
 document.querySelector("#create_room").addEventListener("click", createChatRoom);
 document.querySelector("#create_room_submit").addEventListener("click", createChatRoomSubmit);
 document.querySelector("#join_room_button").addEventListener("click", joinRoomCallback);
+document.querySelector("#join_room_submit").addEventListener("click", joinRoomSubmit);
 scrollToBottom();
