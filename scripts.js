@@ -111,8 +111,8 @@ var submitHandler = function(eventObject) {
     "content": message,
     "uid": currentUser.uid
   };
-  rtdb.push(chatRef, newObj);
-  // scrollToBottom();
+  // rtdb.push(chatRef, newObj);
+  scrollToBottom();
 }
 
 document.querySelector("#submit_button").addEventListener("click", submitHandler);
