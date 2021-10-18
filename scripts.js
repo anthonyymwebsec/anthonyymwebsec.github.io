@@ -52,29 +52,34 @@ var renderChatWindow = function(chatroomName) {
 
   rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
-      alert("JSON.stringify(snapshot.val()): " + JSON.stringify(snapshot.val()))
+      alert("JSON.stringify(snapshot.val()): " + JSON.stringify(snapshot.val()));
+      alert("JSON.stringify(snapshot.val()[0]): " + JSON.stringify(snapshot.val()[0]));
       var chatroomKey = snapshot.child("chatroom_name").key;
       alert("key: " + chatroomKey);
+
+      let chatRef = snapshot.child("chats").ref;
+
+      rtdb.onValue(chatRef, ss=> {
+        // document.querySelector("#msg_list").innerText = "";
+        var chatBox = document.getElementById("chat_window");
+        
+        ss.forEach(function(childSnapshot) {
+          var msgDiv = document.createElement("div");
+          var message = childSnapshot.val().content
+          var user = childSnapshot.val().displayName
+          msgDiv.innerHTML = message;
+          if (user = currentUser.displayName) {
+              msgDiv.classList.add("my_chat");
+          } else {
+              msgDiv.classList.add("others_chat");
+          }
+          chatBox.appendChild(msgDiv);  
+        });
+      });
     }  
   });
 
-  rtdb.onValue(titleRef, ss=> {
-    // document.querySelector("#msg_list").innerText = "";
-    var chatBox = document.getElementById("chat_window");
-    
-    ss.forEach(function(childSnapshot) {
-      var msgDiv = document.createElement("div");
-      var message = childSnapshot.val().content
-      var user = childSnapshot.val().displayName
-      msgDiv.innerHTML = message;
-      if (user = currentUser.displayName) {
-          msgDiv.classList.add("my_chat");
-      } else {
-          msgDiv.classList.add("others_chat");
-      }
-      chatBox.appendChild(msgDiv);  
-    });
-  });
+
 }
 
 var addChatTab = function(chatroomName) {
