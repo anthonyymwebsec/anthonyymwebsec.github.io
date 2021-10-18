@@ -1,8 +1,28 @@
 .chat_window {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-    height:200px; 
-    width:18%; 
-    overflow-y:scroll
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  height:200px; 
+  width:18%; 
+  overflow-y:scroll
 }
+
+.my_chat {
+  pisition: absolute;
+  right: 0px;
+  border-radius: 4px;
+  background-color: #AFF7EB;
+  padding: 2px;
+  height: 10px;
+  text-align: left;
+}
+
+.others_chat {
+  pisition: absolute;
+  border-radius: 4px;
+  background-color: #CEF7AF;
+  padding: 2px;
+  height: 10px;
+  text-align: left;
+}
+ 
