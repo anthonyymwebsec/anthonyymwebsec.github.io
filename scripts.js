@@ -50,6 +50,12 @@ var chatRef = "";
 var renderChatWindow = function(chatroomName) {
   $("#app").show();
 
+  // remove all existing message node from the chat window div
+  var chatBox = document.getElementById("chat_window");
+  while (chatBox.firstChild) {
+    chatBox.removeChild(parent.firstChild);
+  }
+
   let titleRef = rtdb.ref(db, "/chatRoom/");
 
   rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
@@ -61,7 +67,6 @@ var renderChatWindow = function(chatroomName) {
         var chatBox = document.getElementById("chat_window");
         // ss.forEach(function(childSnapshot) {
           // alert("childSnapshot.val() = " + JSON.stringify(childSnapshot.val()));
-          var msgDiv = document.createElement("div");
           var message = ss.val().content;
           var user = ss.val().displayName;
           msgDiv.innerHTML = message;
