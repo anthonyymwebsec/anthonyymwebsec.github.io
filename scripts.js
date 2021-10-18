@@ -80,7 +80,9 @@ var renderChatWindow = function(chatroomName) {
           chatBox.appendChild(msgDiv);
       });
       // });
-    }  
+    } else {
+      alert("snapshot doesn't exist")
+    }
   });
 }
 
