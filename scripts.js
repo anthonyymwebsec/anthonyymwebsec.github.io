@@ -52,10 +52,10 @@ var renderChatWindow = function(chatroomName) {
 
   // remove all existing message node from the chat window div
   var chatBox = document.getElementById("chat_window");
-  // while (chatBox.firstChild) {
-  //   chatBox.removeChild(chatBox.firstChild);
-  // }
-  chatBox.innerHTML = "<div id='chat_window' class='chat_window'></div>";
+  while (chatBox.firstChild) {
+    chatBox.removeChild(chatBox.firstChild);
+  }
+  // chatBox.innerHTML = "<div id='chat_window' class='chat_window'></div>";
 
   let titleRef = rtdb.ref(db, "/chatRoom/");
 
