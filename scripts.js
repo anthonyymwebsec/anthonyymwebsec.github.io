@@ -44,11 +44,11 @@ rtdb.get(chatroomRef).then((snapshot) => {
 //     addChatTab(chatroomName);
 //   });
 // });
-
+$("#app").hide();
 var chatRef = "";
 
 var renderChatWindow = function(chatroomName) {
-  $("#chat_window").show();
+  $("#app").show();
 
   let titleRef = rtdb.ref(db, "/chatRoom/");
 
@@ -58,12 +58,7 @@ var renderChatWindow = function(chatroomName) {
       chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/chats/");
 
       rtdb.onChildAdded(chatRef, ss => {
-        alert("ss: " + JSON.stringify(ss));
-        // document.querySelector("#msg_list").innerText = "";
         var chatBox = document.getElementById("chat_window");
-        
-        
-
         // ss.forEach(function(childSnapshot) {
           // alert("childSnapshot.val() = " + JSON.stringify(childSnapshot.val()));
           var msgDiv = document.createElement("div");
@@ -99,7 +94,8 @@ var submitHandler = function(eventObject) {
   let message = document.querySelector("#message").value;
   let newObj = {
     "displayName": currentUser.displayName,
-    "content": message
+    "content": message,
+    "uid": currentUser.uid
   };
   rtdb.push(chatRef, newObj);
   scrollToBottom();
@@ -174,7 +170,6 @@ fbauth.onAuthStateChanged(auth, user => {
   if (!!user) {
     // user signed in, so show the app
     console.log(`'Logged in as ${user.email}'`);
-    alert(`'Logged in as ${user.email}'`)
     $("#app").show();
     $("#sign_out_button").show();
     $("#sign_in_button").hide();

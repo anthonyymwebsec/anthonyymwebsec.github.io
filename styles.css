@@ -12,7 +12,7 @@ body {font-family: Arial;}
 }
 
 .my_chat {
-  pisition: absolute;
+  position: absolute;
   right: 0px;
   border-radius: 4px;
   background-color: #AFF7EB;
@@ -24,7 +24,7 @@ body {font-family: Arial;}
 }
 
 .others_chat {
-  pisition: absolute;
+  position: absolute;
   border-radius: 4px;
   background-color: #CEF7AF;
   padding: 2px;
