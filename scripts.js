@@ -32,16 +32,15 @@ let peopleRef = rtdb.child(titleRef, "people");
 
 rtdb.onValue(titleRef, ss=> {
   document.querySelector("#msg_list").innerText = "";
-
+  var chatBox = document.getElementById("chat_window");
+  
   ss.forEach(function(childSnapshot) {
-    var ul = document.getElementById("msg_list");
-    var li = document.createElement("li");
+    var msgDiv = document.createElement("div");
     var message = childSnapshot.val().content
     var user = childSnapshot.val().displayName
-    //console.log(message);
-    //innerText = innerText + "<li>" + message + "</li>";
-    li.appendChild(document.createTextNode(`"[${user}] ${message}"`))
-    ul.appendChild(li);
+    msgDiv.innerHTML = message;
+    msgDiv.classList.add("others_chat");
+    chatBox.appendChild(msgDiv);  
   });
 });
 
