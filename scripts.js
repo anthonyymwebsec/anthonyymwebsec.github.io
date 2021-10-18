@@ -93,7 +93,7 @@ var renderChatWindow = function(chatroomName) {
             msgDiv.innerHTML = message;
               msgDiv.classList.add("my_chat");
           } else {
-            msgDiv.innerHTML = "<sup>" + user + "</sup>" + message;
+            msgDiv.innerHTML = "<i>" + user + "</i> " + message;
             msgDiv.classList.add("others_chat");
           }
           chatBox.appendChild(msgDiv);
