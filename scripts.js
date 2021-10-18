@@ -89,11 +89,12 @@ var renderChatWindow = function(chatroomName) {
           var user = ss.val().displayName;
           var uid = ss.val().uid;
           var msgDiv = document.createElement("div"); 
-          msgDiv.innerHTML = user + "</br>" + message;
           if (uid == currentUser.uid) {
+            msgDiv.innerHTML = user;
               msgDiv.classList.add("my_chat");
           } else {
-              msgDiv.classList.add("others_chat");
+            msgDiv.innerHTML = user + "</br>" + message;
+            msgDiv.classList.add("others_chat");
           }
           chatBox.appendChild(msgDiv);
       });
