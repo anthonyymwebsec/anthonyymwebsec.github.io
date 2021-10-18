@@ -90,6 +90,7 @@ form.msg_form input[type=text] {
   border: 1px solid grey;
   border-radius: 5px;
   margin-top: 10px;
+  margin-right: 10px;
 }
 
 /* Style the submit button */
@@ -105,7 +106,7 @@ form.msg_form button {
   border-left: none; /* Prevent double borders */
   cursor: pointer;
   margin-top: 10px;
-
+  margin-left: 10px;
 }
 
 form.msg_form button:hover {
