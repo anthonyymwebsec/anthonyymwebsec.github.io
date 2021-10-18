@@ -18,13 +18,10 @@ body {font-family: Arial;}
   border-radius: 6px;
   background-color: #bfd6f3;
   padding: 4px;
-  height: 40px;
+  min-height: 40px;
   text-align: right;
   margin-top: 5px;
   margin-bottom: 5px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
   max-width: 80%;
 }
 
@@ -33,13 +30,10 @@ body {font-family: Arial;}
   border-radius: 6px;
   background-color: #949497;
   padding: 4px;
-  height: 40px;
+  min-height: 40px;
   text-align: left;
   margin-top: 5px;
   margin-bottom: 5px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
   max-width: 80%;
 }
 
