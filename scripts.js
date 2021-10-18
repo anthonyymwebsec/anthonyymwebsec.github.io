@@ -55,7 +55,7 @@ var renderChatWindow = function(chatroomName) {
   // while (chatBox.firstChild) {
   //   chatBox.removeChild(chatBox.firstChild);
   // }
-  chatBox.innerHTML = "";
+  chatBox.innerHTML = "<div id='chat_window' class='chat_window'></div>";
 
   let titleRef = rtdb.ref(db, "/chatRoom/");
 
