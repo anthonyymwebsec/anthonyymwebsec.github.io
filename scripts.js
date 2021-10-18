@@ -52,14 +52,14 @@ var renderChatWindow = function(chatroomName) {
 
   rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
-      alert("JSON.stringify(snapshot.val()): " + JSON.stringify(snapshot.val()));
-      // alert("JSON.stringify(snapshot.val()[0]): " + JSON.stringify(snapshot.val()[0]));
+      // alert("JSON.stringify(snapshot.val()): " + JSON.stringify(snapshot.val()));
       var chatroomKey = snapshot.child("chatroom_name").key;
-      alert("key: " + chatroomKey);
 
       let chatRef = snapshot.child("chats").ref;
+      alert("chatRef: " + chatRef);
 
       rtdb.onValue(chatRef, ss => {
+        alert("ss: " + ss);
         // document.querySelector("#msg_list").innerText = "";
         var chatBox = document.getElementById("chat_window");
         
