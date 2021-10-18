@@ -52,7 +52,7 @@ var renderChatWindow = function(chatroomName) {
 
   rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
-      var chatroomKey = snapshot.key;
+      var chatroomKey = snapshot.child(chatroomName).key;
       alert("key: " + chatroomKey);
     }  
   });
