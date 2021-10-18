@@ -45,6 +45,8 @@ rtdb.get(chatroomRef).then((snapshot) => {
 //   });
 // });
 
+var chatRef = "";
+
 var renderChatWindow = function(chatroomName) {
   $("#chat_window").show();
 
@@ -53,10 +55,7 @@ var renderChatWindow = function(chatroomName) {
   rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
       var firstKey = Object.keys(snapshot.val())[0];
-      alert("firstKey: " + firstKey);
-
-      let chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/chats/");
-      alert("chatRef: " + chatRef);
+      chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/chats/");
 
       rtdb.onValue(chatRef, ss => {
         alert("ss: " + JSON.stringify(ss));
@@ -66,11 +65,8 @@ var renderChatWindow = function(chatroomName) {
         ss.forEach(function(childSnapshot) {
           alert("childSnapshot.val() = " + JSON.stringify(childSnapshot.val()));
           var msgDiv = document.createElement("div");
-          var key = Object.keys(childSnapshot.val())[0];
-          // alert("childSnapshot[key] = " + childSnapshot[key]);
           var message = childSnapshot.val().content;
           var user = childSnapshot.val().displayName;
-          console.log("message: " + message);
           msgDiv.innerHTML = message;
           if (user = currentUser.displayName) {
               msgDiv.classList.add("my_chat");
@@ -103,7 +99,7 @@ var submitHandler = function(eventObject) {
     "displayName": currentUser.displayName,
     "content": message
   };
-  rtdb.push(titleRef, newObj);
+  rtdb.push(chatRef, newObj);
   scrollToBottom();
 }
 
