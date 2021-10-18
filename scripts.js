@@ -27,7 +27,6 @@ const provider = new fbauth.GoogleAuthProvider();
 // Configure rtdb
 let db = rtdb.getDatabase(app);
 let titleRef = rtdb.ref(db, "/chatRoom/room1/");
-let peopleRef = rtdb.child(titleRef, "people");
 // let user = firebase.UserInfo.displayName;
 
 rtdb.onValue(titleRef, ss=> {
@@ -88,8 +87,27 @@ var checkSignInOutCallback = function() {
   )
 }
 
-var currentUser = null;
+var createChatRoom = function() {
+  $("#create_room").show();
+  $("app").hide();
+}
 
+var createChatRoomSubmit = function() {
+  $("#create_room").hide();
+  $("app").show();
+  let titleRef = rtdb.ref(db, "/chatRoom/");
+  
+  let name = document.querySelector("#chatroom_name").value;
+  let newObj = {
+    "chatroom_name": name,
+    "owner": currentUser.uid,
+    "users": currentUser.uid,
+    "requesters": []
+  };
+  rtdb.push(titleRef, newObj);
+}
+
+var currentUser = null;
 fbauth.onAuthStateChanged(auth, user => {
   if (!!user) {
     // user signed in, so show the app
@@ -111,4 +129,6 @@ fbauth.onAuthStateChanged(auth, user => {
 document.querySelector("#sign_in_button").addEventListener("click", signIn);
 document.querySelector("#sign_out_button").addEventListener("click", signOutCallback);
 document.querySelector("#signin_status_button").addEventListener("click", checkSignInOutCallback);
+document.querySelector("#create_room").addEventListener("click", createChatRoom);
+document.querySelector("#create_room_submit").addEventListener("click", createChatRoomSubmit);
 scrollToBottom();
