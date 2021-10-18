@@ -59,7 +59,7 @@ var renderChatWindow = function(chatroomName) {
       alert("chatRef: " + chatRef);
 
       rtdb.onValue(chatRef, ss => {
-        alert("ss: " + ss);
+        alert("ss: " + JSON.stringify(ss));
         // document.querySelector("#msg_list").innerText = "";
         var chatBox = document.getElementById("chat_window");
         
