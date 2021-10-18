@@ -51,8 +51,8 @@ let chatroomRef = rtdb.ref(db, "/chatRoom/");
 
 rtdb.get(chatroomRef).then((snapshot) => {
   if (snapshot.exists()) {
-    alert("snapshot.val() = " + JSON.stringify(snapshot.val()));
-    snapshot.val().forEach(function(room) {
+    console.log("snapshot.val() = " + JSON.stringify(snapshot.val()));
+    snapshot.forEach(function(room) {
       addChatTab(room.chatroomName);
     });
   }
@@ -140,7 +140,7 @@ var createChatRoomSubmit = function() {
         let newObj = {
           "chatroom_name": name,
           "owner": currentUser.uid,
-          "users": currentUser.uid,
+          "users": [currentUser.uid],
           "requesters": []
         };
         rtdb.push(titleRef, newObj);
