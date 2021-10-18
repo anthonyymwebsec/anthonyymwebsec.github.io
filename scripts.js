@@ -57,13 +57,13 @@ var renderChatWindow = function(chatroomName) {
       var firstKey = Object.keys(snapshot.val())[0];
       chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/chats/");
 
-      rtdb.onValue(chatRef, ss => {
+      rtdb.onChildAdded(chatRef, ss => {
         alert("ss: " + JSON.stringify(ss));
         // document.querySelector("#msg_list").innerText = "";
         var chatBox = document.getElementById("chat_window");
         
         ss.forEach(function(childSnapshot) {
-          alert("childSnapshot.val() = " + JSON.stringify(childSnapshot.val()));
+          // alert("childSnapshot.val() = " + JSON.stringify(childSnapshot.val()));
           var msgDiv = document.createElement("div");
           var message = childSnapshot.val().content;
           var user = childSnapshot.val().displayName;
