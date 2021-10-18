@@ -22,7 +22,7 @@ body {font-family: Arial;}
   text-align: right;
   margin-top: 5px;
   margin-bottom: 5px;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   max-width: 80%;
@@ -37,7 +37,7 @@ body {font-family: Arial;}
   text-align: left;
   margin-top: 5px;
   margin-bottom: 5px;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   max-width: 80%;
@@ -83,7 +83,7 @@ body {font-family: Arial;}
 /* Style the search field */
 form.msg_form input[type=text] {
   float: left;
-  width: 75%;
+  width: 78%;
   padding: 10px;
   background: #f1f1f1;
   font-size: 17px;
