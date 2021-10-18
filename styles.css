@@ -5,8 +5,7 @@ body {font-family: Arial;}
   border-radius: 10px;
   background-color: #f2f2f2;
   padding: 6px 12px;
-  height:200px; 
-  width: 90%;
+  height:400px; 
   overflow-y:auto
 }
 
@@ -71,6 +70,7 @@ body {font-family: Arial;}
 form.msg_form input[type=text] {
   padding: 10px;
   font-size: 17px;
+  border-radius: 10px;
   border: 1px solid grey;
   float: left;
   background: #f1f1f1;
@@ -85,6 +85,7 @@ form.msg_form button {
   color: white;
   font-size: 17px;
   border: 1px solid grey;
+  border-radius: 10px;
   border-left: none; /* Prevent double borders */
   cursor: pointer;
 }
