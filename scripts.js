@@ -47,8 +47,8 @@ rtdb.onValue(titleRef, ss=> {
   });
 });
 
-let titleRef = rtdb.ref(db, "/chatRoom/");
-rtdb.onValue(titleRef, ss=> {
+let chatroomRef = rtdb.ref(db, "/chatRoom/");
+rtdb.onValue(chatroomRef, ss=> {
   ss.forEach(function(childSnapshot) {
     var chatroomName = childSnapshot.val().chatroom_name;
     addChatTab(chatroomName);
