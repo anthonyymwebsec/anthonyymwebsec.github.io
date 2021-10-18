@@ -53,13 +53,13 @@ var renderChatWindow = function(chatroomName) {
   rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
       alert("JSON.stringify(snapshot.val()): " + JSON.stringify(snapshot.val()));
-      alert("JSON.stringify(snapshot.val()[0]): " + JSON.stringify(snapshot.val()[0]));
+      // alert("JSON.stringify(snapshot.val()[0]): " + JSON.stringify(snapshot.val()[0]));
       var chatroomKey = snapshot.child("chatroom_name").key;
       alert("key: " + chatroomKey);
 
       let chatRef = snapshot.child("chats").ref;
 
-      rtdb.onValue(chatRef, ss=> {
+      rtdb.onValue(chatRef, ss => {
         // document.querySelector("#msg_list").innerText = "";
         var chatBox = document.getElementById("chat_window");
         
@@ -67,6 +67,7 @@ var renderChatWindow = function(chatroomName) {
           var msgDiv = document.createElement("div");
           var message = childSnapshot.val().content
           var user = childSnapshot.val().displayName
+          alert("message: " + message);
           msgDiv.innerHTML = message;
           if (user = currentUser.displayName) {
               msgDiv.classList.add("my_chat");
@@ -78,8 +79,6 @@ var renderChatWindow = function(chatroomName) {
       });
     }  
   });
-
-
 }
 
 var addChatTab = function(chatroomName) {
