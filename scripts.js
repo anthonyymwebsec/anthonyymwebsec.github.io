@@ -93,11 +93,21 @@ var createChatRoom = function() {
 }
 
 var createChatRoomSubmit = function() {
-  $("#create_room").hide();
-  $("app").show();
   let titleRef = rtdb.ref(db, "/chatRoom/");
   
   let name = document.querySelector("#chatroom_name").value;
+  if (name.trim() === "") {
+    alert("Please enter a chatroom name.")
+    return;
+  }
+
+  rtdb.orderByChild("chatroom_name").equalTo(name).once("value", snapshot => {
+    if (snapshot.exists()) {
+      alert("This chatroom name already exists.");
+      return;
+    }
+  })
+
   let newObj = {
     "chatroom_name": name,
     "owner": currentUser.uid,
@@ -105,6 +115,9 @@ var createChatRoomSubmit = function() {
     "requesters": []
   };
   rtdb.push(titleRef, newObj);
+
+  $("#create_room").hide();
+  $("app").show();
 }
 
 var currentUser = null;
