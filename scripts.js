@@ -52,13 +52,14 @@ var renderChatWindow = function(chatroomName) {
 
   // remove all existing message node from the chat window div
   var chatBox = document.getElementById("chat_window");
-  while (chatBox.firstChild) {
-    chatBox.removeChild(chatBox.firstChild);
-  }
+  // while (chatBox.firstChild) {
+  //   chatBox.removeChild(chatBox.firstChild);
+  // }
+  chatBox.innerHTML = "";
 
   let titleRef = rtdb.ref(db, "/chatRoom/");
 
-  rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
+  rtdb.get(rtdb.query(titleRef, rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
       var firstKey = Object.keys(snapshot.val())[0];
       chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/chats/");
