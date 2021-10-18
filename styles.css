@@ -20,6 +20,7 @@ body {font-family: Arial;}
   padding: 4px;
   min-height: 40px;
   text-align: right;
+  float: right;
   margin-top: 5px;
   margin-bottom: 5px;
   max-width: 80%;
@@ -32,6 +33,7 @@ body {font-family: Arial;}
   padding: 4px;
   min-height: 40px;
   text-align: left;
+  float: left;
   margin-top: 5px;
   margin-bottom: 5px;
   max-width: 80%;
