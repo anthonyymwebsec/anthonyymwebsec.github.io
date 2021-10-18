@@ -103,12 +103,12 @@ var createChatRoomSubmit = function() {
     return;
   }
 
-  titleRef.orderByChild("chatroom_name").equalTo(name).once("value", snapshot => {
+  rtdb.query(titleRef, orderByChild("chatroom_name")).equalTo(name).once("value", snapshot => {
     if (snapshot.exists()) {
       alert("This chatroom name already exists.");
       return;
     }
-  })
+  });
 
   let newObj = {
     "chatroom_name": name,
