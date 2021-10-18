@@ -69,8 +69,9 @@ var renderChatWindow = function(chatroomName) {
           // alert("childSnapshot.val() = " + JSON.stringify(childSnapshot.val()));
           var message = ss.val().content;
           var user = ss.val().displayName;
+          var uid = ss.val().uid;
           msgDiv.innerHTML = message;
-          if (user = currentUser.displayName) {
+          if (uid = currentUser.uid) {
               msgDiv.classList.add("my_chat");
           } else {
               msgDiv.classList.add("others_chat");
