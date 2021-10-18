@@ -1,5 +1,6 @@
 body {font-family: Arial;}
 
+/* chat window CSS */
 .chat_window {
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -14,10 +15,10 @@ body {font-family: Arial;}
 .my_chat {
   /* position: absolute; */
   right: 0px;
-  border-radius: 4px;
+  border-radius: 6px;
   background-color: #AFF7EB;
-  padding: 2px;
-  height: 20px;
+  padding: 4px;
+  height: 40px;
   text-align: right;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -25,16 +26,16 @@ body {font-family: Arial;}
 
 .others_chat {
   /* position: absolute; */
-  border-radius: 4px;
+  border-radius: 6px;
   background-color: #CEF7AF;
-  padding: 2px;
-  height: 20px;
+  padding: 4px;
+  height: 40px;
   text-align: left;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-/* Style the tab */
+/* Style the tab for chat=room navigation bar */
 .tab {
   overflow: hidden;
   border: 1px solid #ccc;
@@ -74,7 +75,7 @@ body {font-family: Arial;}
 /* Style the search field */
 form.msg_form input[type=text] {
   float: left;
-  width: 75%;
+  width: 80%;
   padding: 10px;
   background: #f1f1f1;
   font-size: 17px;
