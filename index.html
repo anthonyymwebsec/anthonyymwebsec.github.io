@@ -8,7 +8,14 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-	<div id="app">
+  <div class="tab">
+    <button class="tablinks" onclick="changeChatRoom(event, 'Chatroom 1')">Chatroom 1</button>
+    <button class="tablinks" onclick="changeChatRoom(event, 'Chatroom 2')">Chatroom 2</button>
+    <button class="tablinks" onclick="changeChatRoom(event, 'Chatroom 3')">Chatroom 3</button>
+  </div>
+
+
+  <div id="app">
 		<div id="chat_window" class="chat_window">
       <!--all chat messages will be inserted here by JS -->
 		</div>
@@ -16,14 +23,9 @@
 		<input type="text" id="message" name="message"><br>
 		<button id="submit_button">Submit</button>
 	</div>
-	<button id="sign_in_button">Sign in</button>
+
+  <button id="sign_in_button">Sign in</button>
 	<button id="sign_out_button">Sign out</button>
 	<button id="signin_status_button">Check signin status</button>
-	<button id="create_room">Create chatroom</button>
-	<div id="create_room_window">
-		<label>Enter chatroom name:</label><br>
-		<input type="text" id="chatroom_name"><br>
-		<button id="create_room_submit">Create</button>
-	</div>
   </body>
 </html>
