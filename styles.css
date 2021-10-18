@@ -6,7 +6,8 @@ body {font-family: Arial;}
   background-color: #f2f2f2;
   padding: 6px 12px;
   height:200px; 
-  overflow-y:scroll
+  width: 90%;
+  overflow-y:auto
 }
 
 .my_chat {
@@ -15,10 +16,10 @@ body {font-family: Arial;}
   border-radius: 4px;
   background-color: #AFF7EB;
   padding: 2px;
-  height: 10px;
+  height: 20px;
   text-align: right;
-  margin-top: 3px;
-  margin-bottom: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .others_chat {
@@ -26,10 +27,10 @@ body {font-family: Arial;}
   border-radius: 4px;
   background-color: #CEF7AF;
   padding: 2px;
-  height: 10px;
+  height: 20px;
   text-align: left;
-  margin-top: 3px;
-  margin-bottom: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 /* Style the tab */
@@ -62,3 +63,40 @@ body {font-family: Arial;}
 }
 
  
+* {
+  box-sizing: border-box;
+}
+
+/* Style the search field */
+form.msg_form input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.msg_form button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.msg_form button:hover {
+  background: #0b7dda;
+}
+
+/* Clear floats */
+form.msg_form::after {
+  content: "";
+  clear: both;
+  display: table;
+}

@@ -1,38 +1,43 @@
 <!DOCTYPE html>
 <html lang='en-US'>
+
 <head>
 	<meta charset='UTF-8'>
 	<title>Chat App</title>
-	<link rel='stylesheet' href = 'styles.css'>
+	<link rel='stylesheet' href='styles.css'>
 	<script src="scripts.js" type="module"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
+
 <body>
-  <div id="chatroom_tab" class="tab">
-    <!-- <button class="tablinks" onclick="changeChatRoom(event, 'Chatroom 1')">Chatroom 1</button> -->
-  </div>
+	<div id="chatroom_tab" class="tab">
+		<!-- <button class="tablinks" onclick="changeChatRoom(event, 'Chatroom 1')">Chatroom 1</button> -->
+	</div>
 
 
-  <div id="app">
+	<div id="app">
 		<div id="chat_window" class="chat_window">
-      <!--all chat messages will be inserted here by JS -->
+			<!--all chat messages will be inserted here by JS -->
 		</div>
-		<label for="message">Message:</label><br>
-		<input type="text" id="message" name="message"><br>
-		<button id="submit_button">Submit</button>
-  </div>
+		<form class="msg_form" action="/action_page.php">
+			<input type="text" id="message" placeholder="type your message..." name="message">
+			<button id="submit_button" type="submit">Submit</button>
+		</form>
+	</div>
 
-  <button id="sign_in_button">Sign in</button>
+	<button id="sign_in_button">Sign in</button>
 	<button id="sign_out_button">Sign out</button>
 	<button id="signin_status_button">Check signin status</button>
-	
-	<button id="join_room_button">Join chatroom</button>
 
-  </body>
+	<button id="join_room_button">Join chatroom</button>
 	<button id="create_room">Create chatroom</button>
 	<div id="create_room_window">
 		<label>Enter chatroom name:</label><br>
 		<input type="text" id="chatroom_name"><br>
 		<button id="create_room_submit">Create</button>
-	</div>	
+	</div>
+
+</body>
+
 </html>
