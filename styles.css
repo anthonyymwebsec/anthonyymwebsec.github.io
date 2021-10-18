@@ -83,7 +83,7 @@ body {font-family: Arial;}
 /* Style the search field */
 form.msg_form input[type=text] {
   float: left;
-  width: 80%;
+  width: 75%;
   padding: 10px;
   background: #f1f1f1;
   font-size: 17px;
