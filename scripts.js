@@ -27,36 +27,8 @@ const provider = new fbauth.GoogleAuthProvider();
 // Configure rtdb
 let db = rtdb.getDatabase(app);
 
-// Get current user
-var currentUser = null;
-fbauth.onAuthStateChanged(auth, user => {
-  if (!!user) {
-    // user signed in, so show the app
-    console.log(`'Logged in as ${user.email}'`);
-    $("#sign_out_button").show();
-    $("#sign_in_button").hide();
-    currentUser = user;
-  } else {
-    // user not signed in, so show login page
-    console.log('No user, showing login');
-    $("#sign_out_button").hide();
-    $("#sign_in_button").show();
-  }
-});
-
-// Get current user's rooms
-var usersRef = rtdb.ref(db, "/users/");
-rtdb.get(rtdb.query(usersRef, rtdb.orderByChild("uid"), rtdb.equalTo(currentUser.uid))).then((snapshot) => {
-  if (snapshot.exists()) {
-    currentUser.rooms = snapshot.val().rooms;
-  }
-});
-
-currentUser.rooms.forEach(function(room) {
-  console.log(room.chatroom_name);
-});
-
 let chatroomRef = rtdb.ref(db, "/chatRoom/");
+
 rtdb.get(chatroomRef).then((snapshot) => {
   if (snapshot.exists()) {
     console.log("snapshot.val() = " + JSON.stringify(snapshot.val()));
@@ -66,12 +38,12 @@ rtdb.get(chatroomRef).then((snapshot) => {
   }
 });
 
-rtdb.onValue(chatroomRef, ss=> {
-  ss.forEach(function(childSnapshot) {
-    var chatroomName = childSnapshot.val().chatroom_name;
-    addChatTab(chatroomName);
-  });
-});
+// rtdb.onValue(chatroomRef, ss=> {
+//   ss.forEach(function(childSnapshot) {
+//     var chatroomName = childSnapshot.val().chatroom_name;
+//     addChatTab(chatroomName);
+//   });
+// });
 $("#app").hide();
 var chatRef = "";
 
@@ -172,21 +144,7 @@ var scrollToBottom = function() {
 
 var signIn = function() {
   alert("signing in");
-  fbauth.signInWithRedirect(auth, provider).then((result) => {
-    currentUser = result.user;
-
-    rtdb.get(rtdb.query(usersRef, rtdb.orderByChild("uid"), rtdb.equalTo(currentUser.uid))).then((snapshot) => {
-      if (!snapshot.exists()) {
-        let newUser = {
-          "displayName": currentUser.name,
-          "email": currentUser.email,
-          "rooms": [],
-          "uid": currentUser.uid
-        };
-        rtdb.push(usersRef, newUser);
-      }
-    });
-  });
+  fbauth.signInWithRedirect(auth, provider);
 }
 
 var signOutCallback = function() {
@@ -254,6 +212,22 @@ var joinRoomSubmit = function() {
     return;
   }
 }
+
+var currentUser = null;
+fbauth.onAuthStateChanged(auth, user => {
+  if (!!user) {
+    // user signed in, so show the app
+    console.log(`'Logged in as ${user.email}'`);
+    $("#sign_out_button").show();
+    $("#sign_in_button").hide();
+    currentUser = user;
+  } else {
+    // user not signed in, so show login page
+    console.log('No user, showing login');
+    $("#sign_out_button").hide();
+    $("#sign_in_button").show();
+  }
+});
 
 document.querySelector("#sign_in_button").addEventListener("click", signIn);
 document.querySelector("#sign_out_button").addEventListener("click", signOutCallback);
