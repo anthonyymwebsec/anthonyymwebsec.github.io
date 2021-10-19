@@ -27,9 +27,17 @@ const provider = new fbauth.GoogleAuthProvider();
 // Configure rtdb
 let db = rtdb.getDatabase(app);
 
-let chatroomRef = rtdb.ref(db, "/chatRoom/");
+// rtdb.onValue(chatroomRef, ss=> {
+//   ss.forEach(function(childSnapshot) {
+//     var chatroomName = childSnapshot.val().chatroom_name;
+//     addChatTab(chatroomName);
+//   });
+// });
+$("#app").hide();
+var titleRef = rtdb.ref(db, "/chatRoom/");
+document.getElementById("currentChatRoomKey").value = "_initial_";
 
-rtdb.get(chatroomRef).then((snapshot) => {
+rtdb.get(titleRef).then((snapshot) => {
   if (snapshot.exists()) {
     console.log("snapshot.val() = " + JSON.stringify(snapshot.val()));
     snapshot.forEach(function(room) {
@@ -38,16 +46,6 @@ rtdb.get(chatroomRef).then((snapshot) => {
   }
 });
 
-// rtdb.onValue(chatroomRef, ss=> {
-//   ss.forEach(function(childSnapshot) {
-//     var chatroomName = childSnapshot.val().chatroom_name;
-//     addChatTab(chatroomName);
-//   });
-// });
-$("#app").hide();
-var chatRef = "";
-var titleRef = rtdb.ref(db, "/chatRoom/");
-document.getElementById("currentChatRoomKey").value = "_initial_";
 
 
 var getCurrentChatRoomKey = function() {
@@ -101,8 +99,6 @@ var renderChatWindow = function(chatroomName) {
       if (chatChild!=null) {
         chatChild.forEach(eventHandler(ss));
       }
-
-      console.log("snapshot exists for chatRef = " + chatRef);
 
       scrollToBottom();
     } else {
