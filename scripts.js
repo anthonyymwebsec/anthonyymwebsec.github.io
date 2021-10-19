@@ -98,7 +98,7 @@ var renderChatWindow = function(chatroomName) {
 
       var chatChild = snapshot.child("chats");
       if (chatChild!=null) {
-        charChild.forEach(eventHandler(ss));
+        chatChild.forEach(eventHandler(ss));
       }
 
       console.log("snapshot exists for chatRef = " + chatRef);
