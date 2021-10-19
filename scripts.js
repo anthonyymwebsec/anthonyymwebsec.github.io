@@ -52,6 +52,7 @@ var renderChatWindow = function(chatroomName) {
   console.log("rendering chat window");
 
   $("#create_room_window").hide();
+  $("#join_room_window").hide();
 
   // reset all child tab's background color to match CSS exact active one 
   var roomTabBar = document.getElementById("chatroom_tab");
