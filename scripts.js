@@ -66,12 +66,12 @@ rtdb.get(chatroomRef).then((snapshot) => {
   }
 });
 
-// rtdb.onValue(chatroomRef, ss=> {
-//   ss.forEach(function(childSnapshot) {
-//     var chatroomName = childSnapshot.val().chatroom_name;
-//     addChatTab(chatroomName);
-//   });
-// });
+rtdb.onValue(chatroomRef, ss=> {
+  ss.forEach(function(childSnapshot) {
+    var chatroomName = childSnapshot.val().chatroom_name;
+    addChatTab(chatroomName);
+  });
+});
 $("#app").hide();
 var chatRef = "";
 
