@@ -89,7 +89,7 @@ var renderChatWindow = function(chatroomName) {
       var firstKey = Object.keys(snapshot.val())[0];
       setCurrentChatRoomKey(firstKey);
 
-      var chatChild = snapshot.child("chats");
+      var chatChild = snapshot.child(firstKey+"/chats");
       if (chatChild!=null) {
         chatChild.forEach(eventHandler);
       }
