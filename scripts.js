@@ -104,6 +104,7 @@ var renderChatWindow = function(chatroomName) {
 
 var setItemDiv=function(obj) {
   console.log("onChildAdded with obj = " + JSON.stringify());
+  var chatBox = document.getElementById("chat_window");
   // ss.forEach(function(childSnapshot) {
     // alert("childSnapshot.val() = " + JSON.stringify(childSnapshot.val()));
     var message = obj.content;
