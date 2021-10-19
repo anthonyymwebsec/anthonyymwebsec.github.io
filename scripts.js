@@ -247,6 +247,6 @@ fbauth.onAuthStateChanged(auth, user => {
 document.querySelector("#sign_in_button").addEventListener("click", signIn);
 document.querySelector("#sign_out_button").addEventListener("click", signOutCallback);
 // document.querySelector("#signin_status_button").addEventListener("click", checkSignInOutCallback);
-document.querySelector("#join_or_create_room_window").addEventListener("click", joinOrCreateChatRoom);
+document.querySelector("#join_or_create_room_button").addEventListener("click", joinOrCreateChatRoom);
 document.querySelector("#join_or_create_room_window_submit").addEventListener("click", joinOrCreateChatRoomSubmit);
 scrollToBottom();
