@@ -47,6 +47,19 @@ rtdb.get(chatroomRef).then((snapshot) => {
 $("#app").hide();
 var chatRef = "";
 
+var getCurrentChatRoomKey = function() {
+  return document.getElementById("currentChatRoomKey").value;
+}
+
+var setCurrentChatRoomKey = function(currentChatRoomKey) {
+  document.getElementById("currentChatRoomKey").value = currentChatRoomKey;
+}
+
+var getChatRoomRef = function(chatRoomKey) {
+  return rtdb.ref(db, "/chatRoom/" + chatRoomKey + "/chats/");
+}
+
+
 var renderChatWindow = function(chatroomName) {
   console.log("rendering chat window");
 
@@ -66,6 +79,7 @@ var renderChatWindow = function(chatroomName) {
 
   $("#app").show();
 
+
   // remove all existing message node from the chat window div
   var chatBox = document.getElementById("chat_window");
   while (chatBox.firstChild) {
@@ -75,32 +89,21 @@ var renderChatWindow = function(chatroomName) {
 
   let titleRef = rtdb.ref(db, "/chatRoom/");
 
+  
   rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
+
       var firstKey = Object.keys(snapshot.val())[0];
-      chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/chats/");
+      setCurrentChatRoomKey(firstKey);
+
+      var chatChild = snapshot.child("chats");
+      if (chatChild!=null) {
+        charChild.forEach(eventHandler(ss));
+      }
+
       console.log("snapshot exists for chatRef = " + chatRef);
 
-      $("#chat_window").empty();
-      rtdb.onChildAdded(chatRef, ss => {
-        console.log("onChildAdded with ss = " + JSON.stringify(ss.val()));
-        // ss.forEach(function(childSnapshot) {
-          // alert("childSnapshot.val() = " + JSON.stringify(childSnapshot.val()));
-          var message = ss.val().content;
-          var user = ss.val().displayName;
-          var uid = ss.val().uid;
-          var msgDiv = document.createElement("div"); 
-          if (uid == currentUser.uid) {
-            msgDiv.innerHTML = message;
-              msgDiv.classList.add("my_chat");
-          } else {
-            msgDiv.innerHTML = "<i>" + user + "</i> " + message;
-            msgDiv.classList.add("others_chat");
-          }
-          chatBox.appendChild(msgDiv);
-      });
       scrollToBottom();
-      // });
     } else {
       alert("snapshot doesn't exist")
     }
@@ -132,7 +135,7 @@ var submitHandler = function(eventObject) {
     "content": message,
     "uid": currentUser.uid
   };
-  rtdb.push(chatRef, newObj);
+  rtdb.push(getChatRoomRef(getCurrentChatRoomKey), newObj);
   scrollToBottom();
 }
 
@@ -228,6 +231,28 @@ fbauth.onAuthStateChanged(auth, user => {
     $("#sign_in_button").show();
   }
 });
+
+var eventHandler=function(ss) {
+  console.log("onChildAdded with ss = " + JSON.stringify(ss.val()));
+  if (ss.child(getCurrentChatRoomKey()).exists()) {
+    var message = ss.child(getCurrentChatRoomKey+"/chats").val().content;
+    var user = ss.child(getCurrentChatRoomKey+"/chats").val().displayName;
+    var uid = ss.child(getCurrentChatRoomKey+"/chats").val().uid;
+    var msgDiv = document.createElement("div"); 
+    if (uid == currentUser.uid) {
+      msgDiv.innerHTML = message;
+        msgDiv.classList.add("my_chat");
+    } else {
+      msgDiv.innerHTML = "<i>" + user + "</i> " + message;
+      msgDiv.classList.add("others_chat");
+    }
+    chatBox.appendChild(msgDiv);
+  }
+}
+
+rtdb.onChildAdded(titleRef, ss => eventHandler(ss));
+
+
 
 document.querySelector("#sign_in_button").addEventListener("click", signIn);
 document.querySelector("#sign_out_button").addEventListener("click", signOutCallback);
