@@ -47,6 +47,7 @@ rtdb.get(chatroomRef).then((snapshot) => {
 $("#app").hide();
 var chatRef = "";
 var titleRef = rtdb.ref(db, "/chatRoom/");
+document.getElementById("currentChatRoomKey").value = "_initial_";
 
 
 var getCurrentChatRoomKey = function() {
@@ -232,7 +233,7 @@ fbauth.onAuthStateChanged(auth, user => {
 });
 
 var eventHandler=function(ss) {
-  console.log("onChildAdded with ss = " + JSON.stringify(ss.val()));
+  console.log("eventHandler with ss = " + JSON.stringify(ss.val()));
   if (ss.child(getCurrentChatRoomKey()).exists()) {
     var message = ss.child(getCurrentChatRoomKey+"/chats").val().content;
     var user = ss.child(getCurrentChatRoomKey+"/chats").val().displayName;
