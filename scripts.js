@@ -33,8 +33,7 @@ rtdb.get(chatroomRef).then((snapshot) => {
   if (snapshot.exists()) {
     console.log("snapshot.val() = " + JSON.stringify(snapshot.val()));
     snapshot.forEach(function(room) {
-      addChatTab(room.val().chatroom_name);
-      console.log("room.child('users').size = " + room.child("users").size);
+      addChatTab(room.val().chatroom_name, room.child("users").size); 
     });
   }
 });
@@ -108,7 +107,7 @@ var renderChatWindow = function(chatroomName) {
   });
 }
 
-var addChatTab = function(chatroomName) {
+var addChatTab = function(chatroomName, userCount) {
   var msgDiv = document.createElement("button");
   msgDiv.classList.add("tablinks");
   msgDiv.innerHTML = chatroomName;
@@ -116,7 +115,12 @@ var addChatTab = function(chatroomName) {
   msgDiv.onclick = function() {
     renderChatWindow(chatroomName);
   }
-
+  if (userCount!=null) {
+    var msgBadge = document.createElement("span");
+    msgBadge.classList.add("badge");
+    msgBadge.innerHTML=userCount;
+    msgDiv.appendChild(msgBadge);
+  }
   var chatTab = document.getElementById("chatroom_tab");
   chatTab.appendChild(msgDiv)
 }
@@ -189,7 +193,7 @@ var createChatRoomSubmit = function() {
           "requesters": []
         };
         rtdb.push(titleRef, newObj);
-        addChatTab(name);
+        addChatTab(name, 1);
       }
     });
   }
