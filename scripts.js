@@ -50,7 +50,7 @@ var chatRef = "";
 var renderChatWindow = function(chatroomName) {
   console.log("rendering chat window");
 
-  $("#create_room_window").hide();
+  $("#join_or_create_room_window").hide();
   $("#join_room_window").hide();
 
   // reset all child tab's background color to match CSS exact active one 
@@ -89,13 +89,13 @@ var renderChatWindow = function(chatroomName) {
           setItemDiv(ss.val());
         });
           
-      } else {
-        var chatItems = snapshot.child(firstKey+"/chats").val();
-        if (chatItem!=null) {
-          var children = chatItems.childNodes;
-          childNodes.forEach(setItemDiv);
+      // } else {
+      //   var chatItems = snapshot.child(firstKey+"/chats").val();
+      //   if (chatItems!=null) {
+      //     var children = chatItems.childNodes;
+      //     childNodes.forEach(setItemDiv);
 
-        }
+        // }
       }
 
       scrollToBottom();
@@ -185,14 +185,14 @@ var checkSignInOutCallback = function() {
   )
 }
 
-$("#create_room_window").hide();
+$("#join_or_create_room_window").hide();
 
-var createChatRoom = function() {
-  $("#create_room_window").show();
+var joinOrCreateChatRoom = function() {
+  $("#join_or_create_room_window").show();
   $("#app").hide();
 }
 
-var createChatRoomSubmit = function() {  
+var joinOrCreateChatRoomSubmit = function() {  
   let titleRef = rtdb.ref(db, "/chatRoom/");
 
   let name = document.querySelector("#chatroom_name").value;
@@ -202,7 +202,16 @@ var createChatRoomSubmit = function() {
   } else {
     rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(name))).then((snapshot) => {
       if (snapshot.exists()) {
-        alert("This chatroom name already exists.");
+        if (confirm("Would you like to join the chatroom '" + name + "'?")) {
+          var firstKey = Object.keys(snapshot.val())[0];
+          chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/users/");
+
+          var size = "" + snapshot.size;
+          var obj = {
+            size: currentUser.uid
+          }
+          rtdb.push(chatRef, obj);
+        }
         return;
       } else {
         let newObj = {
@@ -217,19 +226,6 @@ var createChatRoomSubmit = function() {
     });
   }
   $("#app").show();
-}
-
-var joinRoomCallback = function() {
-  $("#join_room_window").show();
-  $("#app").hide();
-}
-
-var joinRoomSubmit = function() {
-  let name = document.querySelector("#join_chatroom_name").value;
-  if (name.trim() === "") {
-    alert("Please enter a chatroom name.")
-    return;
-  }
 }
 
 var currentUser = null;
@@ -251,8 +247,6 @@ fbauth.onAuthStateChanged(auth, user => {
 document.querySelector("#sign_in_button").addEventListener("click", signIn);
 document.querySelector("#sign_out_button").addEventListener("click", signOutCallback);
 // document.querySelector("#signin_status_button").addEventListener("click", checkSignInOutCallback);
-document.querySelector("#create_room").addEventListener("click", createChatRoom);
-document.querySelector("#create_room_submit").addEventListener("click", createChatRoomSubmit);
-document.querySelector("#join_room_button").addEventListener("click", joinRoomCallback);
-document.querySelector("#join_room_submit").addEventListener("click", joinRoomSubmit);
+document.querySelector("#join_or_create_room_window").addEventListener("click", joinOrCreateChatRoom);
+document.querySelector("#join_or_create_room_window_submit").addEventListener("click", joinOrCreateChatRoomSubmit);
 scrollToBottom();
