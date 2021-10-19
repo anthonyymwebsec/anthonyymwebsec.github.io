@@ -207,10 +207,9 @@ var joinOrCreateChatRoomSubmit = function() {
           chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/users/");
 
           var size = "" + snapshot.size;
-          var obj = {
-            size: currentUser.uid
-          }
-          rtdb.push(chatRef, obj);
+          var val = snapshot.val();
+          val.add(currentUser.uid);
+          rtdb.push(chatRef, val);
         }
         return;
       } else {
