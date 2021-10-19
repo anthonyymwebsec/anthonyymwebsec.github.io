@@ -205,10 +205,10 @@ var joinOrCreateChatRoomSubmit = function() {
         if (confirm("Would you like to join the chatroom '" + name + "'?")) {
           var firstKey = Object.keys(snapshot.val())[0];
           chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/users/");
-
           var size = "" + snapshot.size;
           var val = snapshot.val();
-          console.log(val)
+          alert("val = " + val);
+          console.log("val = " + val);
           val.push(currentUser.uid);
           rtdb.push(chatRef, val);
         }
