@@ -46,6 +46,8 @@ rtdb.get(chatroomRef).then((snapshot) => {
 // });
 $("#app").hide();
 var chatRef = "";
+var titleRef = rtdb.ref(db, "/chatRoom/");
+
 
 var getCurrentChatRoomKey = function() {
   return document.getElementById("currentChatRoomKey").value;
@@ -86,8 +88,6 @@ var renderChatWindow = function(chatroomName) {
     chatBox.removeChild(chatBox.firstChild);
   }
   // chatBox.innerHTML = "<div id='chat_window' class='chat_window'></div>";
-
-  let titleRef = rtdb.ref(db, "/chatRoom/");
 
   
   rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
@@ -177,7 +177,6 @@ var createChatRoom = function() {
 }
 
 var createChatRoomSubmit = function() {  
-  let titleRef = rtdb.ref(db, "/chatRoom/");
 
   let name = document.querySelector("#chatroom_name").value;
   if (name.trim() === "") {
