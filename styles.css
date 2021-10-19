@@ -145,3 +145,150 @@ body {font-family: Arial;}
   background-color: #04AA6D;
 }
 /* enf of top bar CSS */
+body {font-family: Arial;}
+
+/* chat window CSS */
+.chat_window {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  padding: 6px 12px;
+  height:400px; 
+  overflow-y:auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.my_chat {
+  /* position: absolute; */
+  right: 0px;
+  border-radius: 6px;
+  background-color: #d9e7f7;
+  padding: 4px;
+  min-height: 40px;
+  text-align: right;
+  float: right;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.others_chat {
+  /* position: absolute; */
+  border-radius: 6px;
+  background-color: #949497;
+  padding: 4px;
+  min-height: 40px;
+  text-align: left;
+  float: left;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+/* Style the tab for chat=room navigation bar */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+ 
+* {
+  box-sizing: border-box;
+}
+
+/* Style the search field */
+.msg_form input[type=text] {
+  float: left;
+  width: 78%;
+  padding: 10px;
+  background: #f1f1f1;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+/* Style the submit button */
+.msg_form button {
+  float: right;
+  width: 20%;
+  padding: 10px;
+  background-color: #04AA6D;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.msg_form button:hover {
+  background: #000;
+}
+
+/* Clear floats */
+.msg_form::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* CSS for top bar */
+.navbar {
+  width: 100%;
+  background-color: #555;
+  color: white;
+  font-size: 30px;
+  padding: 5px 4px 5px 10px;
+  text-decoration: none;
+  overflow: auto;
+}
+
+.navbar button {
+  float: right;
+  padding: 12px;
+  color: white;
+  background-color:#04AA6D;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar button:hover {
+  background-color: #000;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+/* enf of top bar CSS */

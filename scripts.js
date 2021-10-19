@@ -4,8 +4,8 @@ import * as rtdb from "https://www.gstatic.com/firebasejs/9.1.3/firebase-databas
 //import { getAuth, onAuthStateChanged, getRedirectResult, signInWithPopup, signInWithRedirect, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js';
 import * as fbauth from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -27,11 +27,9 @@ const provider = new fbauth.GoogleAuthProvider();
 // Configure rtdb
 let db = rtdb.getDatabase(app);
 
-$("#app").hide();
-var titleRef = rtdb.ref(db, "/chatRoom/");
-document.getElementById("currentChatRoomKey").value = "_initial_";
+let chatroomRef = rtdb.ref(db, "/chatRoom/");
 
-rtdb.get(titleRef).then((snapshot) => {
+rtdb.get(chatroomRef).then((snapshot) => {
   if (snapshot.exists()) {
     console.log("snapshot.val() = " + JSON.stringify(snapshot.val()));
     snapshot.forEach(function(room) {
@@ -40,20 +38,14 @@ rtdb.get(titleRef).then((snapshot) => {
   }
 });
 
-
-
-var getCurrentChatRoomKey = function() {
-  return document.getElementById("currentChatRoomKey").value;
-}
-
-var setCurrentChatRoomKey = function(currentChatRoomKey) {
-  document.getElementById("currentChatRoomKey").value = currentChatRoomKey;
-}
-
-var getChatRoomRef = function(chatRoomKey) {
-  return rtdb.ref(db, "/chatRoom/" + chatRoomKey + "/chats/");
-}
-
+// rtdb.onValue(chatroomRef, ss=> {
+//   ss.forEach(function(childSnapshot) {
+//     var chatroomName = childSnapshot.val().chatroom_name;
+//     addChatTab(chatroomName);
+//   });
+// });
+$("#app").hide();
+var chatRef = "";
 
 var renderChatWindow = function(chatroomName) {
   console.log("rendering chat window");
@@ -74,7 +66,6 @@ var renderChatWindow = function(chatroomName) {
 
   $("#app").show();
 
-
   // remove all existing message node from the chat window div
   var chatBox = document.getElementById("chat_window");
   while (chatBox.firstChild) {
@@ -82,19 +73,34 @@ var renderChatWindow = function(chatroomName) {
   }
   // chatBox.innerHTML = "<div id='chat_window' class='chat_window'></div>";
 
-  
+  let titleRef = rtdb.ref(db, "/chatRoom/");
+
   rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
-
       var firstKey = Object.keys(snapshot.val())[0];
-      setCurrentChatRoomKey(firstKey);
+      chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/chats/");
+      console.log("snapshot exists for chatRef = " + chatRef);
 
-      var chatChild = snapshot.child(firstKey+"/chats");
-      if (chatChild!=null) {
-        chatChild.forEach(eventHandler);
-      }
-
+      $("#chat_window").empty();
+      rtdb.onChildAdded(chatRef, ss => {
+        console.log("onChildAdded with ss = " + JSON.stringify(ss.val()));
+        // ss.forEach(function(childSnapshot) {
+          // alert("childSnapshot.val() = " + JSON.stringify(childSnapshot.val()));
+          var message = ss.val().content;
+          var user = ss.val().displayName;
+          var uid = ss.val().uid;
+          var msgDiv = document.createElement("div"); 
+          if (uid == currentUser.uid) {
+            msgDiv.innerHTML = message;
+              msgDiv.classList.add("my_chat");
+          } else {
+            msgDiv.innerHTML = "<i>" + user + "</i> " + message;
+            msgDiv.classList.add("others_chat");
+          }
+          chatBox.appendChild(msgDiv);
+      });
       scrollToBottom();
+      // });
     } else {
       alert("snapshot doesn't exist")
     }
@@ -126,7 +132,7 @@ var submitHandler = function(eventObject) {
     "content": message,
     "uid": currentUser.uid
   };
-  rtdb.push(getChatRoomRef(getCurrentChatRoomKey), newObj);
+  rtdb.push(chatRef, newObj);
   scrollToBottom();
 }
 
@@ -168,6 +174,7 @@ var createChatRoom = function() {
 }
 
 var createChatRoomSubmit = function() {  
+  let titleRef = rtdb.ref(db, "/chatRoom/");
 
   let name = document.querySelector("#chatroom_name").value;
   if (name.trim() === "") {
@@ -221,28 +228,6 @@ fbauth.onAuthStateChanged(auth, user => {
     $("#sign_in_button").show();
   }
 });
-
-var eventHandler=function(ss) {
-  console.log("eventHandler with ss = " + JSON.stringify(ss.val()));
-  if (ss.child(getCurrentChatRoomKey()).exists()) {
-    var message = ss.child(getCurrentChatRoomKey+"/chats").val().content;
-    var user = ss.child(getCurrentChatRoomKey+"/chats").val().displayName;
-    var uid = ss.child(getCurrentChatRoomKey+"/chats").val().uid;
-    var msgDiv = document.createElement("div"); 
-    if (uid == currentUser.uid) {
-      msgDiv.innerHTML = message;
-        msgDiv.classList.add("my_chat");
-    } else {
-      msgDiv.innerHTML = "<i>" + user + "</i> " + message;
-      msgDiv.classList.add("others_chat");
-    }
-    chatBox.appendChild(msgDiv);
-  }
-}
-
-rtdb.onChildAdded(titleRef, ss => eventHandler(ss));
-
-
 
 document.querySelector("#sign_in_button").addEventListener("click", signIn);
 document.querySelector("#sign_out_button").addEventListener("click", signOutCallback);
