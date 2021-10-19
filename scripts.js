@@ -4,8 +4,8 @@ import * as rtdb from "https://www.gstatic.com/firebasejs/9.1.3/firebase-databas
 //import { getAuth, onAuthStateChanged, getRedirectResult, signInWithPopup, signInWithRedirect, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js';
 import * as fbauth from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
 
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -27,12 +27,6 @@ const provider = new fbauth.GoogleAuthProvider();
 // Configure rtdb
 let db = rtdb.getDatabase(app);
 
-// rtdb.onValue(chatroomRef, ss=> {
-//   ss.forEach(function(childSnapshot) {
-//     var chatroomName = childSnapshot.val().chatroom_name;
-//     addChatTab(chatroomName);
-//   });
-// });
 $("#app").hide();
 var titleRef = rtdb.ref(db, "/chatRoom/");
 document.getElementById("currentChatRoomKey").value = "_initial_";
@@ -97,7 +91,7 @@ var renderChatWindow = function(chatroomName) {
 
       var chatChild = snapshot.child("chats");
       if (chatChild!=null) {
-        chatChild.forEach(eventHandler(ss));
+        chatChild.forEach(eventHandler);
       }
 
       scrollToBottom();
