@@ -91,7 +91,11 @@ var renderChatWindow = function(chatroomName) {
           
       } else {
         var chatItems = snapshot.child(firstKey+"/chats").val();
-        chatItems.forEach(setItemDiv);
+        if (chatItem!=null) {
+          var children = chatItems.childNodes;
+          childNodes.forEach(setItemDiv);
+
+        }
       }
 
       scrollToBottom();
