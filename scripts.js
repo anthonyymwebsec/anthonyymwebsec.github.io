@@ -208,7 +208,8 @@ var joinOrCreateChatRoomSubmit = function() {
 
           var size = "" + snapshot.size;
           var val = snapshot.val();
-          val.add(currentUser.uid);
+          console.log(val)
+          val.push(currentUser.uid);
           rtdb.push(chatRef, val);
         }
         return;
