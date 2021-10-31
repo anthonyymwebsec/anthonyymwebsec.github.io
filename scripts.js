@@ -52,7 +52,14 @@ rtdb.get(chatroomRef).then((snapshot) => {
 $("#app").hide();
 var chatRef = "";
 
+var currentRoomName = null;
+
 var renderChatWindow = function(chatroomName) {
+  if (currentRoomName == chatroomName) {
+    return
+  }
+  currentRoomName = chatroomName;
+
   console.log("rendering chat window");
 
   $("#join_or_create_room_window").hide();
@@ -70,6 +77,7 @@ var renderChatWindow = function(chatroomName) {
   }
 
   $("#app").show();
+  $("#chat_window").empty();
 
   let titleRef = rtdb.ref(db, "/chatRoom/");
 
