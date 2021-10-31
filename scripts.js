@@ -57,7 +57,7 @@ var renderChatWindow = function(chatroomName) {
   var roomTabBar = document.getElementById("chatroom_tab");
   var roomTabChild = roomTabBar.children;
   for (var i=0; i< roomTabChild.length; i++) {
-    if (roomTabChild[i].innerHTML==chatroomName) {
+    if (roomTabChild[i].innerText==chatroomName) {
       roomTabChild[i].style.backgroundColor="#ccc"
     } else {
       roomTabChild[i].style.backgroundColor="#f1f1f1"
@@ -106,6 +106,7 @@ var renderChatWindow = function(chatroomName) {
   });
 }
 
+// create message box
 var setItemDiv=function(obj) {
   console.log("onChildAdded with obj = " + JSON.stringify());
   var chatBox = document.getElementById("chat_window");
@@ -116,20 +117,19 @@ var setItemDiv=function(obj) {
     var uid = obj.uid;
     var msgDiv = document.createElement("div"); 
     if (uid == currentUser.uid) {
-      msgDiv.innerHTML = message;
+      msgDiv.innerText = message;
         msgDiv.classList.add("my_chat");
     } else {
-      msgDiv.innerHTML = "<i>" + user + "</i> " + message;
+      msgDiv.innerText = "[" + user + "] " + message;
       msgDiv.classList.add("others_chat");
     }
     chatBox.appendChild(msgDiv);
-
 }
 
 var addChatTab = function(chatroomName, userCount) {
   var msgDiv = document.createElement("button");
   msgDiv.classList.add("tablinks");
-  msgDiv.innerHTML = chatroomName;
+  msgDiv.innerText = chatroomName;
   msgDiv.id = chatroomName;
   msgDiv.onclick = function() {
     renderChatWindow(chatroomName);
@@ -137,7 +137,7 @@ var addChatTab = function(chatroomName, userCount) {
   if (userCount!=null) {
     var msgBadge = document.createElement("span");
     msgBadge.classList.add("badge");
-    msgBadge.innerHTML=userCount;
+    msgBadge.innerText=userCount;
     msgDiv.appendChild(msgBadge);
   }
   var chatTab = document.getElementById("chatroom_tab");
