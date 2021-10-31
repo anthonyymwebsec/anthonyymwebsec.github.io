@@ -33,7 +33,12 @@ rtdb.get(chatroomRef).then((snapshot) => {
   if (snapshot.exists()) {
     console.log("snapshot.val() = " + JSON.stringify(snapshot.val()));
     snapshot.forEach(function(room) {
-      addChatTab(room.val().chatroom_name, room.child("users").size); 
+      room.val().users.forEach(function(user) {
+        if (user.uid == currentUser.uid) {
+          console.log("adding chatroom " + room.val().chatroom_name);
+          addChatTab(room.val().chatroom_name, room.child("users").size);
+        }  
+      });
     });
   }
 });
