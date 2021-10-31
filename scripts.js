@@ -37,7 +37,7 @@ rtdb.get(chatroomRef).then((snapshot) => {
       console.log("room.val().users: " + room.val().users);
 
       var roomKeys = Object.keys(room.val().users);
-      for (roomKey in roomKeys) {
+      for (const roomKey in roomKeys) {
         if (room.val().users[roomKey].uid == currentUser.uid) {
           console.log("adding chatroom " + room.val().chatroom_name);
           addChatTab(room.val().chatroom_name, room.child("users").size);          
