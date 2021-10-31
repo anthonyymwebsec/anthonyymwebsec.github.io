@@ -209,7 +209,9 @@ var joinOrCreateChatRoomSubmit = function() {
         let newObj = {
           "chatroom_name": name,
           "owner": currentUser.uid,
-          "users": [currentUser.uid],
+          "users": {
+            "key" : {"uid": currentUser.uid}
+          },
           "requesters": []
         };
         rtdb.push(titleRef, newObj);
