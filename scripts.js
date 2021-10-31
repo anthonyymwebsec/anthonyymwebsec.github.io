@@ -36,6 +36,7 @@ rtdb.get(chatroomRef).then((snapshot) => {
       console.log("room: " + room);
       console.log("room.val().users: " + room.val().users);
 
+      console.log("currentUser.uid = " + currentUser.uid);
       var roomKeys = Object.keys(room.val().users);
       for (let i = 0; i < roomKeys.length; i++) {
         let roomKey = roomKeys[i];
@@ -93,11 +94,10 @@ var renderChatWindow = function(chatroomName) {
   $("#app").show();
 
   // remove all existing message node from the chat window div
-  var chatBox = document.getElementById("chat_window");
-  while (chatBox.firstChild) {
-    chatBox.removeChild(chatBox.firstChild);
-  }
-  // chatBox.innerHTML = "<div id='chat_window' class='chat_window'></div>";
+  // var chatBox = document.getElementById("chat_window");
+  // while (chatBox.firstChild) {
+  //   chatBox.removeChild(chatBox.firstChild);
+  // }
 
   let titleRef = rtdb.ref(db, "/chatRoom/");
 
@@ -108,24 +108,14 @@ var renderChatWindow = function(chatroomName) {
       console.log("snapshot exists for chatRef = " + chatRef);
 
       if (!chatRoomHashMap.has(firstKey)) {
-
         chatRoomHashMap.set(firstKey, firstKey);
         $("#chat_window").empty();
         rtdb.onChildAdded(chatRef, ss => {
           setItemDiv(ss.val());
         });
-          
-      // } else {
-      //   var chatItems = snapshot.child(firstKey+"/chats").val();
-      //   if (chatItems!=null) {
-      //     var children = chatItems.childNodes;
-      //     childNodes.forEach(setItemDiv);
-
-        // }
       }
 
       scrollToBottom();
-      // });
     } else {
       alert("snapshot doesn't exist")
     }
