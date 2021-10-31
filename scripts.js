@@ -36,14 +36,22 @@ rtdb.get(chatroomRef).then((snapshot) => {
       console.log("room: " + room);
       console.log("room.val().users: " + room.val().users);
 
-      console.log("currentUser.uid = " + currentUser.uid);
-      for (let i = 0; i < room.val().users.length; i++) {
-        console.log("room.val().users[i].uid = " + room.val().users[i].uid)
-        if (room.val().users[i].uid == currentUser.uid) {
+      var roomKeys = Object.keys(room.val().users);
+      for (roomKey in roomKeys) {
+        if (room.val().users[roomKey].uid == currentUser.uid) {
           console.log("adding chatroom " + room.val().chatroom_name);
-          addChatTab(room.val().chatroom_name, room.child("users").size);
+          addChatTab(room.val().chatroom_name, room.child("users").size);          
         }
       }
+
+      // console.log("currentUser.uid = " + currentUser.uid);
+      // for (let i = 0; i < room.val().users.length; i++) {
+      //   console.log("room.val().users[i].uid = " + room.val().users[i].uid)
+      //   if (room.val().users[i].uid == currentUser.uid) {
+      //     console.log("adding chatroom " + room.val().chatroom_name);
+      //     addChatTab(room.val().chatroom_name, room.child("users").size);
+      //   }
+      // }
 
       // for (user in room.val().users) {
       //   if (user.uid == currentUser.uid) {
@@ -222,10 +230,10 @@ var joinOrCreateChatRoomSubmit = function() {
         if (confirm("Would you like to join the chatroom '" + name + "'?")) {
           var firstKey = Object.keys(snapshot.val())[0];
           chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/users/");
-          // var obj = {
-          //   "uid": currentUser.uid
-          // }
-          rtdb.push(chatRef, currentUser.uid);
+          var obj = {
+            "uid": currentUser.uid
+          }
+          rtdb.push(chatRef, obj);
         }
         return;
       } else {
