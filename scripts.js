@@ -120,6 +120,14 @@ var setItemDiv=function(obj) {
   chatBox.appendChild(msgDiv);
 }
 
+var addUserRow = function(user) {
+  var chatroomSettings = document.getElementById("chatroom_settings");
+
+  var userRow = document.createElement("div");
+
+  chatroomSettings.appendChild(userRow);
+}
+
 var addChatTab = function(chatroomName, userCount) {
   var msgDiv = document.createElement("button");
   msgDiv.classList.add("tablinks");
@@ -222,6 +230,7 @@ var joinOrCreateChatRoomSubmit = function() {
   $("#app").show();
 }
 
+var usersRef = rtdb.ref(db, "/users/");
 var currentUser = null;
 fbauth.onAuthStateChanged(auth, user => {
   if (!!user) {
@@ -230,6 +239,12 @@ fbauth.onAuthStateChanged(auth, user => {
     $("#sign_out_button").show();
     $("#sign_in_button").hide();
     currentUser = user;
+
+    usersRef.child(user.uid).set({
+      displayName: user.displayName,
+      email: user.email
+    });
+
   } else {
     // user not signed in, so show login page
     console.log('No user, showing login');
