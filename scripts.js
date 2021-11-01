@@ -129,7 +129,8 @@ var addUserRow = function(user) {
   chatroomSettings.appendChild(userRow);
 }
 
-var renderUserRows = function(chatroomName) {
+var renderUserRows = function() {
+  let chatroomName = currentRoomName;
   $("#chatroom_settings").empty();
   $("#chatroom_settings").show();
 
