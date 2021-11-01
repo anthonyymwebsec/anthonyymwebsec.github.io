@@ -53,7 +53,7 @@ $("#app").hide();
 var chatRef = "";
 
 var currentRoomName = null;
-
+var chatroomKey = null;
 var renderChatWindow = function(chatroomName) {
   if (currentRoomName == chatroomName) {
     return
@@ -83,12 +83,12 @@ var renderChatWindow = function(chatroomName) {
 
   rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
-      var firstKey = Object.keys(snapshot.val())[0];
-      chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/chats/");
+      chatroomKey = Object.keys(snapshot.val())[0];
+      chatRef = rtdb.ref(db, "/chatRoom/" + chatroomKey + "/chats/");
       console.log("snapshot exists for chatRef = " + chatRef);
 
-      if (!chatRoomHashMap.has(firstKey)) {
-        chatRoomHashMap.set(firstKey, firstKey);
+      if (!chatRoomHashMap.has(chatroomKey)) {
+        chatRoomHashMap.set(chatroomKey, chatroomKey);
         $("#chat_window").empty();
         rtdb.onChildAdded(chatRef, ss => {
           setItemDiv(ss.val());
@@ -132,8 +132,11 @@ var addUserRow = function(user) {
   userRowButton.classList.add("tablinks");
   userRowButton.innerText = "remove";
   userRowButton.onclick = function() {
-    //TODO: remove user from db
     $("#user-row" + user.uid).remove();
+    
+    //TODO: remove user from db chatroom
+    let userRef = rtdb.ref(db, "/chatRoom/" + chatroomKey + "/users/" + user.uid);
+    rtdb.remove(userRef);
   }
   userRow.appendChild(userRowButton);
 }
