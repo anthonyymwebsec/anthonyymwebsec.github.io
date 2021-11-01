@@ -240,11 +240,10 @@ fbauth.onAuthStateChanged(auth, user => {
     $("#sign_in_button").hide();
     currentUser = user;
 
-    usersRef.child(user.uid).set({
+    fbauth.set(usersRef, {
       displayName: user.displayName,
       email: user.email
     });
-
   } else {
     // user not signed in, so show login page
     console.log('No user, showing login');
