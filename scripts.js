@@ -129,6 +129,40 @@ var addUserRow = function(user) {
   chatroomSettings.appendChild(userRow);
 }
 
+var renderUserRows = function(chatroomName) {
+  $("#chatroom_settings").empty();
+  $("#chatroom_settings").show();
+
+  rtdb.get(rtdb.query(chatroomRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
+    if (snapshot.exists()) {
+      var firstKey = Object.keys(snapshot.val())[0];
+      let chatroomUsersRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/users");
+      console.log("snapshot exists for chatroomUsersRef = " + chatroomUsersRef);
+
+      rtdb.get(chatroomUsersRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          let chatroomUsers = snapshot.val();
+          for (let i = 0; i < chatroomUsers.length; i++) {
+            let usersRef = rtdb.ref(db, "/users/" + chatroomUsers[i].uid);
+            let chatroomUser = rtdb.get(usersRef);
+            addUserRow(chatroomUser);
+          }
+        }
+      });
+
+      if (!chatRoomHashMap.has(firstKey)) {
+        chatRoomHashMap.set(firstKey, firstKey);
+        $("#chatroom_settings").empty();
+        rtdb.onChildAdded(chatRef, ss => {
+          setItemDiv(ss.val());
+        });
+      }
+    } else {
+      alert("snapshot doesn't exist")
+    }
+  });
+}
+
 var addChatTab = function(chatroomName, userCount) {
   var msgDiv = document.createElement("button");
   msgDiv.classList.add("tablinks");
@@ -243,7 +277,8 @@ fbauth.onAuthStateChanged(auth, user => {
     // add user to /users in db
     rtdb.set(usersRef, {
       displayName: user.displayName,
-      email: user.email
+      email: user.email,
+      uid: user.uid
     });
   } else {
     // user not signed in, so show login page
@@ -258,4 +293,5 @@ document.querySelector("#sign_out_button").addEventListener("click", signOutCall
 // document.querySelector("#signin_status_button").addEventListener("click", checkSignInOutCallback);
 document.querySelector("#join_or_create_room_button").addEventListener("click", joinOrCreateChatRoom);
 document.querySelector("#join_or_create_room_window_submit").addEventListener("click", joinOrCreateChatRoomSubmit);
+document.querySelector("#open_chatroom_settings_button").addEventListener("click", addUserRow);
 scrollToBottom();
