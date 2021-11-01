@@ -259,7 +259,7 @@ var joinOrCreateChatRoomSubmit = function() {
           var firstKey = Object.keys(snapshot.val())[0];
           let chatroomUserRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/users/" + currentUser.uid);
           rtdb.set(chatroomUserRef, {
-            uid: user.uid
+            uid: currentUser.uid
           });
         }
         return;
