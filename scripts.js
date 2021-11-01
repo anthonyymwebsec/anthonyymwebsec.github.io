@@ -124,6 +124,7 @@ var addUserRow = function(user) {
   var chatroomSettings = document.getElementById("chatroom_settings");
 
   var userRow = document.createElement("div");
+  userRow.innerText = user.displayName;
 
   chatroomSettings.appendChild(userRow);
 }
@@ -218,9 +219,8 @@ var joinOrCreateChatRoomSubmit = function() {
           "chatroom_name": name,
           "owner": currentUser.uid,
           "users": {
-            "key" : {"uid": currentUser.uid}
-          },
-          "requesters": []
+            "key": {"uid": currentUser.uid}
+          }
         };
         rtdb.push(titleRef, newObj);
         addChatTab(name, 1);
@@ -239,7 +239,8 @@ fbauth.onAuthStateChanged(auth, user => {
     $("#sign_in_button").hide();
     currentUser = user;
     let usersRef = rtdb.ref(db, "/users/" + user.uid);
-    
+
+    // add user to /users in db
     rtdb.set(usersRef, {
       displayName: user.displayName,
       email: user.email
