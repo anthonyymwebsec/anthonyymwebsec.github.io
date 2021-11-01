@@ -145,6 +145,7 @@ var renderUserRows = function(chatroomName) {
           for (let i = 0; i < chatroomUsers.length; i++) {
             let usersRef = rtdb.ref(db, "/users/" + chatroomUsers[i].uid);
             rtdb.get(usersRef).then((snapshot) => {
+              console.log("adding user " + snapshot.val());
               addUserRow(snapshot.val());
             });
           }
@@ -286,5 +287,5 @@ document.querySelector("#sign_out_button").addEventListener("click", signOutCall
 // document.querySelector("#signin_status_button").addEventListener("click", checkSignInOutCallback);
 document.querySelector("#join_or_create_room_button").addEventListener("click", joinOrCreateChatRoom);
 document.querySelector("#join_or_create_room_window_submit").addEventListener("click", joinOrCreateChatRoomSubmit);
-document.querySelector("#open_chatroom_settings_button").addEventListener("click", addUserRow);
+document.querySelector("#open_chatroom_settings_button").addEventListener("click", renderUserRows);
 scrollToBottom();
