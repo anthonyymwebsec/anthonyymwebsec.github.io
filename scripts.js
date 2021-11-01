@@ -134,7 +134,8 @@ var addUserRow = function(user) {
   userRowButton.onclick = function() {
     //TODO: remove user
   }
-  
+
+  chatroomSettings.appendChild(userRowButton); 
 }
 
 var renderUserRows = function() {
