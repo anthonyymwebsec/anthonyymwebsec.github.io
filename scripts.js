@@ -246,22 +246,21 @@ var joinOrCreateChatRoom = function() {
 }
 
 var joinOrCreateChatRoomSubmit = function() {  
-  let titleRef = rtdb.ref(db, "/chatRoom/");
+  let chatroomsRef = rtdb.ref(db, "/chatRoom/");
 
   let name = document.querySelector("#chatroom_name").value;
   if (name.trim() === "") {
     alert("Please enter a chatroom name.")
     return;
   } else {
-    rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(name))).then((snapshot) => {
+    rtdb.get(rtdb.query(chatroomsRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(name))).then((snapshot) => {
       if (snapshot.exists()) {
         if (confirm("Would you like to join the chatroom '" + name + "'?")) {
           var firstKey = Object.keys(snapshot.val())[0];
-          chatRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/users/");
-          var obj = {
-            "uid": currentUser.uid
-          }
-          rtdb.push(chatRef, obj);
+          let chatroomUserRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/users/" + currentUser.uid);
+          rtdb.set(chatroomUserRef, {
+            uid: user.uid
+          });
         }
         return;
       } else {
@@ -272,7 +271,7 @@ var joinOrCreateChatRoomSubmit = function() {
             "key": {"uid": currentUser.uid}
           }
         };
-        rtdb.push(titleRef, newObj);
+        rtdb.push(chatroomsRef, newObj);
         addChatTab(name, 1);
       }
     });
