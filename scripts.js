@@ -230,7 +230,6 @@ var joinOrCreateChatRoomSubmit = function() {
   $("#app").show();
 }
 
-var usersRef = rtdb.ref(db, "/users/");
 var currentUser = null;
 fbauth.onAuthStateChanged(auth, user => {
   if (!!user) {
@@ -239,7 +238,8 @@ fbauth.onAuthStateChanged(auth, user => {
     $("#sign_out_button").show();
     $("#sign_in_button").hide();
     currentUser = user;
-
+    let usersRef = rtdb.ref(db, "/users/" + user.uid);
+    
     rtdb.set(usersRef, {
       displayName: user.displayName,
       email: user.email
