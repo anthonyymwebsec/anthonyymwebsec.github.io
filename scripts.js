@@ -148,8 +148,13 @@ var renderUserRows = function() {
           for (let i = 0; i < chatroomUsers.length; i++) {
             let usersRef = rtdb.ref(db, "/users/" + chatroomUsers[i].uid);
             rtdb.get(usersRef).then((snapshot) => {
-              console.log("adding user " + snapshot.val());
-              addUserRow(snapshot.val());
+              if (snapshot.exists()) {
+                console.log("adding user " + snapshot.val());
+                addUserRow(snapshot.val());
+              }
+              else {
+                console.log("usersRef snapshot doesn't exist");
+              }
             });
           }
         } else {
