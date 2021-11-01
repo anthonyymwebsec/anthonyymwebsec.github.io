@@ -84,14 +84,17 @@ var renderChatWindow = function(chatroomName) {
 
   rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
+      chatroomKey = Object.keys(snapshot.val())[0];
+
+      console.log("snapshot.val().owner = " + snapshot.val()[chatroomKey].owner);
+      console.log("currentUser.uid = " + currentUser.uid);
       if (snapshot.val().owner == currentUser.uid) {
-        console.log("snapshot.val().owner = " + snapshot.val().owner);
-        console.log("currentUser.uid = " + currentUser.uid);
-        console.log("showing chatroom_settings");
         $("#chatroom_settings").show();
+        console.log("showing chatroom_settings");
+      } else {
+        console.log("not showing chatroom_settings");
       }
 
-      chatroomKey = Object.keys(snapshot.val())[0];
       chatRef = rtdb.ref(db, "/chatRoom/" + chatroomKey + "/chats/");
       console.log("snapshot exists for chatRef = " + chatRef);
 
