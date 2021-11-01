@@ -123,6 +123,7 @@ var addUserRow = function(user) {
   var chatroomSettings = document.getElementById("chatroom_settings");
 
   var userRow = document.createElement("div");
+  userRow.id = "user-row" + user.uid;
   userRow.innerText = user.displayName;
 
   chatroomSettings.appendChild(userRow);
@@ -130,9 +131,9 @@ var addUserRow = function(user) {
   var userRowButton = document.createElement("button");
   userRowButton.classList.add("tablinks");
   userRowButton.innerText = "remove";
-  //userRowButton.id = user.uid;
   userRowButton.onclick = function() {
-    //TODO: remove user
+    //TODO: remove user from db
+    $("#user-row" + user.uid).remove();
   }
 
   chatroomSettings.appendChild(userRowButton); 
