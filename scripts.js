@@ -104,7 +104,6 @@ var renderChatWindow = function(chatroomName) {
 
 // create message box
 var setItemDiv=function(obj) {
-  console.log("onChildAdded with obj = " + JSON.stringify());
   var chatBox = document.getElementById("chat_window");
   var message = obj.content;
   var user = obj.displayName;
@@ -127,6 +126,15 @@ var addUserRow = function(user) {
   userRow.innerText = user.displayName;
 
   chatroomSettings.appendChild(userRow);
+
+  var userRowButton = document.createElement("button");
+  userRowButton.classList.add("tablinks");
+  userRowButton.innerText = "remove";
+  //userRowButton.id = user.uid;
+  userRowButton.onclick = function() {
+    //TODO: remove user
+  }
+  
 }
 
 var renderUserRows = function() {
@@ -154,9 +162,6 @@ var renderUserRows = function() {
               if (snapshot.exists()) {
                 console.log("adding user " + snapshot.val());
                 addUserRow(snapshot.val());
-              }
-              else {
-                console.log("usersRef snapshot doesn't exist");
               }
             });
           }
