@@ -144,19 +144,12 @@ var renderUserRows = function(chatroomName) {
           let chatroomUsers = snapshot.val();
           for (let i = 0; i < chatroomUsers.length; i++) {
             let usersRef = rtdb.ref(db, "/users/" + chatroomUsers[i].uid);
-            let chatroomUser = rtdb.get(usersRef);
-            addUserRow(chatroomUser);
+            rtdb.get(usersRef).then((snapshot) => {
+              addUserRow(snapshot.val());
+            });
           }
         }
       });
-
-      if (!chatRoomHashMap.has(firstKey)) {
-        chatRoomHashMap.set(firstKey, firstKey);
-        $("#chatroom_settings").empty();
-        rtdb.onChildAdded(chatRef, ss => {
-          setItemDiv(ss.val());
-        });
-      }
     } else {
       alert("snapshot doesn't exist")
     }
