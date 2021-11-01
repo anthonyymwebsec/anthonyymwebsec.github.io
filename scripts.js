@@ -131,6 +131,7 @@ var addUserRow = function(user) {
 
 var renderUserRows = function() {
   let chatroomName = currentRoomName;
+  console.log("chatroomName = " + chatroomName);
   $("#chatroom_settings").empty();
   $("#chatroom_settings").show();
 
@@ -288,5 +289,5 @@ document.querySelector("#sign_out_button").addEventListener("click", signOutCall
 // document.querySelector("#signin_status_button").addEventListener("click", checkSignInOutCallback);
 document.querySelector("#join_or_create_room_button").addEventListener("click", joinOrCreateChatRoom);
 document.querySelector("#join_or_create_room_window_submit").addEventListener("click", joinOrCreateChatRoomSubmit);
-document.querySelector("#open_chatroom_settings_button").addEventListener("click", renderUserRows(currentRoomName));
+document.querySelector("#open_chatroom_settings_button").addEventListener("click", renderUserRows);
 scrollToBottom();
