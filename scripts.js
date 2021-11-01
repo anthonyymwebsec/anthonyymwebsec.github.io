@@ -240,7 +240,7 @@ fbauth.onAuthStateChanged(auth, user => {
     $("#sign_in_button").hide();
     currentUser = user;
 
-    fbauth.set(usersRef, {
+    rtdb.set(usersRef, {
       displayName: user.displayName,
       email: user.email
     });
