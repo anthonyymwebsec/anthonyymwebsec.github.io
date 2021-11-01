@@ -50,6 +50,7 @@ rtdb.get(chatroomRef).then((snapshot) => {
 });
 
 $("#app").hide();
+$("#chatroom_settings").hide();
 var chatRef = "";
 
 var currentRoomName = null;
@@ -83,6 +84,10 @@ var renderChatWindow = function(chatroomName) {
 
   rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
+      if (snapshot.val().owner == currentUser.uid) {
+        $("#chatroom_settings").show();
+      }
+
       chatroomKey = Object.keys(snapshot.val())[0];
       chatRef = rtdb.ref(db, "/chatRoom/" + chatroomKey + "/chats/");
       console.log("snapshot exists for chatRef = " + chatRef);
@@ -245,7 +250,7 @@ var joinOrCreateChatRoom = function() {
   $("#app").hide();
 }
 
-var joinOrCreateChatRoomSubmit = function() {  
+var joinOrCreateChatRoomSubmit = function() {
   let chatroomsRef = rtdb.ref(db, "/chatRoom/");
 
   let name = document.querySelector("#chatroom_name").value;
@@ -268,7 +273,7 @@ var joinOrCreateChatRoomSubmit = function() {
           "chatroom_name": name,
           "owner": currentUser.uid,
           "users": {
-            "key": {"uid": currentUser.uid}
+            "owner": {"uid": currentUser.uid}
           }
         };
         rtdb.push(chatroomsRef, newObj);
