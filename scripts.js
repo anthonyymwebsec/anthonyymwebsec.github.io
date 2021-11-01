@@ -287,5 +287,5 @@ document.querySelector("#sign_out_button").addEventListener("click", signOutCall
 // document.querySelector("#signin_status_button").addEventListener("click", checkSignInOutCallback);
 document.querySelector("#join_or_create_room_button").addEventListener("click", joinOrCreateChatRoom);
 document.querySelector("#join_or_create_room_window_submit").addEventListener("click", joinOrCreateChatRoomSubmit);
-document.querySelector("#open_chatroom_settings_button").addEventListener("click", renderUserRows);
+document.querySelector("#open_chatroom_settings_button").addEventListener("click", renderUserRows(currentRoomName));
 scrollToBottom();
