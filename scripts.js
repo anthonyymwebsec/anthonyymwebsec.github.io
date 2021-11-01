@@ -85,6 +85,9 @@ var renderChatWindow = function(chatroomName) {
   rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
       if (snapshot.val().owner == currentUser.uid) {
+        console.log("snapshot.val().owner = " + snapshot.val().owner);
+        console.log("currentUser.uid = " + currentUser.uid);
+        console.log("showing chatroom_settings");
         $("#chatroom_settings").show();
       }
 
