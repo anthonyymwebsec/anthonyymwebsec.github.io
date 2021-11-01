@@ -135,8 +135,7 @@ var addUserRow = function(user) {
     //TODO: remove user from db
     $("#user-row" + user.uid).remove();
   }
-
-  chatroomSettings.appendChild(userRowButton); 
+  userRow.appendChild(userRowButton);
 }
 
 var renderUserRows = function() {
