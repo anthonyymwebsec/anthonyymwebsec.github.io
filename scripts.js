@@ -280,7 +280,7 @@ var joinOrCreateChatRoomSubmit = function() {
           });
         }
         return;
-      } else {
+      } else if (confirm("Would you like to create the chatroom '" + name + "'?")) {
         let newObj = {
           "chatroom_name": name,
           "owner": currentUser.uid,
