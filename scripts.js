@@ -88,7 +88,7 @@ var renderChatWindow = function(chatroomName) {
 
       console.log("snapshot.val().owner = " + snapshot.val()[chatroomKey].owner);
       console.log("currentUser.uid = " + currentUser.uid);
-      if (snapshot.val().owner == currentUser.uid) {
+      if (snapshot.val()[chatroomKey].owner == currentUser.uid) {
         $("#chatroom_settings").show();
         console.log("showing chatroom_settings");
       } else {
