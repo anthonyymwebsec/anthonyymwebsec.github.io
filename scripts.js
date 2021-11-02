@@ -92,6 +92,7 @@ var renderChatWindow = function(chatroomName) {
         $("#chatroom_settings").show();
         console.log("showing chatroom_settings");
       } else {
+        $("#chatroom_settings").hide();
         console.log("not showing chatroom_settings");
       }
 
