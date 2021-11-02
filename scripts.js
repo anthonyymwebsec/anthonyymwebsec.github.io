@@ -131,13 +131,13 @@ var setItemDiv=function(obj) {
 }
 
 var addUserRow = function(user) {
-  var chatroomSettings = document.getElementById("chatroom_settings");
+  var usersList = document.getElementById("users_list");
 
   var userRow = document.createElement("div");
   userRow.id = "user-row" + user.uid;
   userRow.innerText = user.displayName;
 
-  chatroomSettings.appendChild(userRow);
+  usersList.appendChild(userRow);
 
   var userRowButton = document.createElement("button");
   userRowButton.classList.add("tablinks");
@@ -150,12 +150,15 @@ var addUserRow = function(user) {
     rtdb.remove(userRef);
   }
   userRow.appendChild(userRowButton);
+
+  var chatroomSettings = document.getElementById("chatroom_settings");
+  chatroomSettings.append(usersList);
 }
 
 var renderUserRows = function() {
   let chatroomName = currentRoomName;
   console.log("chatroomName = " + chatroomName);
-  $("#chatroom_settings").empty();
+  $("#users_list").empty();
   $("#chatroom_settings").show();
 
   rtdb.get(rtdb.query(chatroomRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
