@@ -150,9 +150,6 @@ var addUserRow = function(user) {
     rtdb.remove(userRef);
   }
   userRow.appendChild(userRowButton);
-
-  var chatroomSettings = document.getElementById("chatroom_settings");
-  chatroomSettings.append(usersList);
 }
 
 var renderUserRows = function() {
@@ -183,6 +180,9 @@ var renderUserRows = function() {
               }
             });
           }
+          var chatroomSettings = document.getElementById("chatroom_settings");
+          var usersList = document.getElementById("users_list");
+          chatroomSettings.append(usersList);
         } else {
           console.log("chatroom users snapshot doesn't exist");
         }
