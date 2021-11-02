@@ -291,6 +291,7 @@ var joinOrCreateChatRoomSubmit = function() {
     });
   }
   $("#app").show();
+  $("#join_or_create_room_window").hide();
 }
 
 var currentUser = null;
