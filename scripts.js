@@ -163,7 +163,7 @@ var deleteChatroom = function() {
   rtdb.get(rtdb.query(chatroomsRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(currentRoomName))).then((snapshot) => {
     if (snapshot.exists()) {
       var firstKey = Object.keys(snapshot.val())[0];
-      currentChatroomRef = rtdb.ref(db, "/chatRoom/" + firstkey)
+      currentChatroomRef = rtdb.ref(db, "/chatRoom/" + firstKey)
       rtdb.remove(currentChatroomRef);
     }
   });
