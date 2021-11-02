@@ -79,7 +79,7 @@ var renderChatWindow = function(chatroomName) {
 
   $("#app").show();
   $("#chat_window").empty();
-  $("#users_list").hide();
+  $("#users_list").empty();
 
   let titleRef = rtdb.ref(db, "/chatRoom/");
 
