@@ -27,9 +27,9 @@ const provider = new fbauth.GoogleAuthProvider();
 // Configure rtdb
 let db = rtdb.getDatabase(app);
 let chatRoomHashMap = new Map();
-let chatroomRef = rtdb.ref(db, "/chatRoom/");
+let chatroomsRef = rtdb.ref(db, "/chatRoom/");
 
-rtdb.get(chatroomRef).then((snapshot) => {
+rtdb.get(chatroomsRef).then((snapshot) => {
   if (snapshot.exists()) {
     console.log("snapshot.val() = " + JSON.stringify(snapshot.val()));
     snapshot.forEach(function(room) {
@@ -143,7 +143,7 @@ var addUserRow = function(user) {
 
   var userRowButton = document.createElement("button");
   userRowButton.classList.add("tablinks");
-  userRowButton.innerText = "remove";
+  userRowButton.innerText = "Remove";
   userRowButton.onclick = function() {
     $("#user-row" + user.uid).remove();
     
@@ -154,13 +154,26 @@ var addUserRow = function(user) {
   userRow.appendChild(userRowButton);
 }
 
-var renderUserRows = function() {
-  let chatroomName = currentRoomName;
-  console.log("chatroomName = " + chatroomName);
-  $("#users_list").empty();
+var renderChatroomSettings = function() {
   $("#chatroom_settings").show();
+  renderUserRows();
+}
 
-  rtdb.get(rtdb.query(chatroomRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
+var deleteChatroom = function() {
+  rtdb.get(rtdb.query(chatroomsRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(currentRoomName))).then((snapshot) => {
+    if (snapshot.exists()) {
+      var firstKey = Object.keys(snapshot.val())[0];
+      currentChatroomRef = rtdb.ref(db, "/chatRoom/" + firstkey)
+      rtdb.remove(currentChatroomRef);
+    }
+  });
+}
+
+var renderUserRows = function() {
+  console.log("chatroomName = " + currentRoomName);
+  $("#users_list").empty();
+
+  rtdb.get(rtdb.query(chatroomsRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(currentRoomName))).then((snapshot) => {
     if (snapshot.exists()) {
       var firstKey = Object.keys(snapshot.val())[0];
       let chatroomUsersRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/users");
@@ -332,5 +345,6 @@ document.querySelector("#sign_out_button").addEventListener("click", signOutCall
 // document.querySelector("#signin_status_button").addEventListener("click", checkSignInOutCallback);
 document.querySelector("#join_or_create_room_button").addEventListener("click", joinOrCreateChatRoom);
 document.querySelector("#join_or_create_room_window_submit").addEventListener("click", joinOrCreateChatRoomSubmit);
-document.querySelector("#open_chatroom_settings_button").addEventListener("click", renderUserRows);
+document.querySelector("#open_chatroom_settings_button").addEventListener("click", renderChatroomSettings);
+document.querySelector("#delete_chatroom_btn").addEventListener("click", deleteChatroom);
 scrollToBottom();
