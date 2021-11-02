@@ -296,6 +296,8 @@ var joinOrCreateChatRoomSubmit = function() {
 
 var currentUser = null;
 fbauth.onAuthStateChanged(auth, user => {
+  var signinStatus = document.getElementById("signin_status");
+
   if (!!user) {
     // user signed in, so show the app
     console.log(`'Logged in as ${user.email}'`);
@@ -310,11 +312,15 @@ fbauth.onAuthStateChanged(auth, user => {
       email: user.email,
       uid: user.uid
     });
+
+    // add sign in user text
+    signinStatus.innerText = "Signed in as " + user.displayName + " (" + user.email + ")";
   } else {
     // user not signed in, so show login page
     console.log('No user, showing login');
     $("#sign_out_button").hide();
     $("#sign_in_button").show();
+    signinStatus.innerText = "";
   }
 });
 
