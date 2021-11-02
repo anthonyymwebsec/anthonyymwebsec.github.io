@@ -258,6 +258,7 @@ $("#join_or_create_room_window").hide();
 var joinOrCreateChatRoom = function() {
   $("#join_or_create_room_window").show();
   $("#app").hide();
+  $("#chatroom_settings").hide();
 }
 
 var joinOrCreateChatRoomSubmit = function() {
