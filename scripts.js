@@ -69,13 +69,14 @@ var renderChatWindow = function(chatroomName) {
   // reset all child tab's background color to match CSS exact active one 
   var roomTabBar = document.getElementById("chatroom_tab");
   var roomTabChild = roomTabBar.children;
+  console.log("roomTabChild.length ==")
   for (var i=0; i< roomTabChild.length; i++) {
     if (roomTabChild[i].innerText==chatroomName) {
-      console.log("roomTabChild[i].innerText==chatroomName")
-      roomTabChild[i].style.backgroundColor="#ccc"
+      console.log("roomTabChild[i].innerText==chatroomName");
+      roomTabChild[i].style.backgroundColor="#ccc";
     } else {
-      console.log("roomTabChild[i].innerText!=chatroomName")
-      roomTabChild[i].style.backgroundColor="#f1f1f1"
+      console.log("roomTabChild[i].innerText!=chatroomName");
+      roomTabChild[i].style.backgroundColor="#f1f1f1";
     }
   }
 
