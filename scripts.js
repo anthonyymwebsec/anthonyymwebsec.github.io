@@ -166,11 +166,12 @@ var deleteChatroom = function() {
   if (confirm("Are you sure you want to delete chat room " + currentRoomName + " ?")) {
     $("#app").hide();
     $("#chatroom_settings").hide();
-    var chatTabs = document.getElementById("chatroom_tab").children;
+    var chatTabBar = document.getElementById("chatroom_tab");
+    var chatTabs = chatTabBar.children;
     for (var i=0; i< chatTabs.length; i++) {
       if (chatTabs[i].firstChild.nodeValue == currentRoomName) {
         console.log("removing tab" + currentRoomName);
-        chatTabs.removeChild(chatTabs[i]);
+        chatTabBar.removeChild(chatTabs[i]);
         // $("#" + currentRoomName).remove();
       }
     }
