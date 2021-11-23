@@ -71,11 +71,11 @@ var renderChatWindow = function(chatroomName) {
   var roomTabChild = roomTabBar.children;
   console.log("roomTabChild.length ==")
   for (var i=0; i< roomTabChild.length; i++) {
-    if (roomTabChild[i].innerText==chatroomName) {
-      console.log("roomTabChild[i].innerText==chatroomName");
+    if (roomTabChild[i].firstChild.nodeValue == chatroomName) {
+      console.log("roomTabChild[i].firstChild.nodeValue == chatroomName");
       roomTabChild[i].style.backgroundColor="#ccc";
     } else {
-      console.log("roomTabChild[i].innerText!=chatroomName");
+      console.log("roomTabChild[i].firstChild.nodeValue != chatroomName");
       roomTabChild[i].style.backgroundColor="#f1f1f1";
     }
   }
