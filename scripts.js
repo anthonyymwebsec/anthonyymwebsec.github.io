@@ -163,13 +163,26 @@ var renderChatroomSettings = function() {
 }
 
 var deleteChatroom = function() {
-  rtdb.get(rtdb.query(chatroomsRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(currentRoomName))).then((snapshot) => {
-    if (snapshot.exists()) {
-      var firstKey = Object.keys(snapshot.val())[0];
-      var currentChatroomRef = rtdb.ref(db, "/chatRoom/" + firstKey)
-      rtdb.remove(currentChatroomRef);
+  if (confirm("Are you sure you want to delete chat room " + currentRoomName + " ?")) {
+    $("#app").hide();
+    $("#chatroom_settings").hide();
+    var chatTabs = document.getElementById("chatroom_tab").children;
+    for (var i=0; i< chatTabs.length; i++) {
+      if (chatTabs[i].firstChild.nodeValue == currentRoomName) {
+        console.log("removing tab" + currentRoomName);
+        chatTabs.removeChild(chatTabs[i]);
+        // $("#" + currentRoomName).remove();
+      }
     }
-  });
+    
+    rtdb.get(rtdb.query(chatroomsRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(currentRoomName))).then((snapshot) => {
+      if (snapshot.exists()) {
+        var firstKey = Object.keys(snapshot.val())[0];
+        var currentChatroomRef = rtdb.ref(db, "/chatRoom/" + firstKey)
+        rtdb.remove(currentChatroomRef);
+      }
+    });
+  }
 }
 
 var renderUserRows = function() {
