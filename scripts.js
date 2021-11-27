@@ -44,7 +44,7 @@ rtdb.get(chatroomNamesRef).then((snapshot) => {
 });
 
 for (let i = 0; i < chatroomNames.length; i++) {
-  let chatroomRef = rtdb.ref(db, "/chatRoom/" + Object.keys(chatroomNames[i])[0]);
+  let chatroomRef = rtdb.ref(db, "/chatRoomNames/" + Object.keys(chatroomNames[i])[0]);
   rtdb.get(chatroomRef).then((snapshot) => {
     if (snapshot.exists()) {
       addChatTab(snapshot.val().chatroom_name, snapshot.val().child("users").size);     
