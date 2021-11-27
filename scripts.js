@@ -107,8 +107,8 @@ var renderChatWindow = function(roomID, chatroomName) {
   }
 
   $("#app").show();
-  // $("#chat_window").empty();
-  // $("#users_list").empty();
+  $("#chat_window").empty();
+  $("#users_list").empty();
 
   rtdb.get(rtdb.ref(db, "/chatRoom/" + roomID + "/")).then((snapshot) => {
   // rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
@@ -213,39 +213,29 @@ var renderUserRows = function() {
   console.log("chatroomName = " + currentRoomName);
   $("#users_list").empty();
 
-  rtdb.get(rtdb.query(chatroomsRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(currentRoomName))).then((snapshot) => {
+  rtdb.get(rtdb.ref(db, "/chatRoom/" + currentRoomID + "/users").then((snapshot) => {
     if (snapshot.exists()) {
-      var firstKey = Object.keys(snapshot.val())[0];
-      let chatroomUsersRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/users");
-      console.log("snapshot exists for chatroomUsersRef = " + chatroomUsersRef);
-
-      rtdb.get(chatroomUsersRef).then((snapshot) => {
-        if (snapshot.exists()) {
-          let chatroomUsers = snapshot.val();
-          console.log("chatroomUsers = " + chatroomUsers);
-          let chatroomUserKeys = Object.keys(chatroomUsers); 
-          for (let i = 0; i < chatroomUserKeys.length; i++) {
-            let chatroomUser = chatroomUsers[chatroomUserKeys[i]];
-            console.log("chatroomUser = " + chatroomUser);
-            let usersRef = rtdb.ref(db, "/users/" + chatroomUser.uid);
-            rtdb.get(usersRef).then((snapshot) => {
-              if (snapshot.exists()) {
-                console.log("adding user " + snapshot.val());
-                addUserRow(snapshot.val());
-              }
-            });
+      let chatroomUsers = snapshot.val();
+      console.log("chatroomUsers = " + chatroomUsers);
+      let chatroomUserKeys = Object.keys(chatroomUsers);
+      for (let i = 0; i < chatroomUserKeys.length; i++) {
+        let chatroomUser = chatroomUsers[chatroomUserKeys[i]];
+        console.log("chatroomUser = " + chatroomUser);
+        let usersRef = rtdb.ref(db, "/users/" + chatroomUser.uid);
+        rtdb.get(usersRef).then((snapshot) => {
+          if (snapshot.exists()) {
+            console.log("adding user " + snapshot.val());
+            addUserRow(snapshot.val());
           }
-          var chatroomSettings = document.getElementById("chatroom_settings");
-          var usersList = document.getElementById("users_list");
-          chatroomSettings.append(usersList);
-        } else {
-          console.log("chatroom users snapshot doesn't exist");
-        }
-      });
+        });
+      }
+      var chatroomSettings = document.getElementById("chatroom_settings");
+      var usersList = document.getElementById("users_list");
+      chatroomSettings.append(usersList);
     } else {
-      console.log("chatroom snapshot doesn't exist");
+      console.log("chatroom users snapshot doesn't exist");
     }
-  });
+  }));
 }
 
 var addChatTab = function(chatroomID, chatroomName, userCount) {
