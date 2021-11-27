@@ -213,7 +213,7 @@ var renderUserRows = function() {
   console.log("chatroomName = " + currentRoomName);
   $("#users_list").empty();
 
-  rtdb.get(rtdb.ref(db, "/chatRoom/" + currentRoomID + "/users").then((snapshot) => {
+  rtdb.get(rtdb.ref(db, "/chatRoom/" + currentRoomID + "/users")).then((snapshot) => {
     if (snapshot.exists()) {
       let chatroomUsers = snapshot.val();
       console.log("chatroomUsers = " + chatroomUsers);
@@ -235,7 +235,7 @@ var renderUserRows = function() {
     } else {
       console.log("chatroom users snapshot doesn't exist");
     }
-  }));
+  });
 }
 
 var addChatTab = function(chatroomID, chatroomName, userCount) {
