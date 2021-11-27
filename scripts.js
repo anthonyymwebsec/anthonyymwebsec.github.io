@@ -30,7 +30,7 @@ let chatRoomHashMap = new Map();
 let chatroomsRef = rtdb.ref(db, "/chatRoom/");
 
 var chatroomNames = []; //chatrooms user is part of
-let chatroomNamesRef = rtdb.ref(db, "/chatRoomNames");
+let chatroomNamesRef = rtdb.ref(db, "/chatRoomNames/");
 rtdb.get(chatroomNamesRef).then((snapshot) => {
   if (snapshot.exists()) {
     // chatroomNamesAll: key/value with random_id: {name: "room1", users: {uid: {uid: "uid"}}}
