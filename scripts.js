@@ -35,7 +35,7 @@ rtdb.get(chatroomNamesRef).then((snapshot) => {
   if (snapshot.exists()) {
     // chatroomNamesAll: key/value with random_id: {name: "room1", users: {uid: {uid: "uid"}}}
     let chatroomNamesAll = snapshot.val();
-    for (let i = 0; i < chatroomNamesAll.length; i++) {
+    for (let i = 0; i < Object.keys(chatroomNamesAll).length; i++) {
       if (!!chatroomNamesAll[i].users[currentUser.uid]) {
         chatroomNames.push(chatroomNamesAll[i]);
       }
