@@ -38,7 +38,7 @@ rtdb.get(chatroomNamesRef).then((snapshot) => {
     let keys = Object.keys(chatroomNamesAll);
     for (let i = 0; i < keys.length; i++) {
       if (!!chatroomNamesAll[keys[i]].users[currentUser.uid]) {
-        addChatTab(chatroomNamesAll[keys[i]].name, chatroomNamesAll[keys[i]].users);
+        addChatTab(chatroomNamesAll[keys[i]].name, Object.keys(chatroomNamesAll[keys[i]].users).length);
         // chatroomNames.push(chatroomNamesAll[keys[i]]);
       }
     }
