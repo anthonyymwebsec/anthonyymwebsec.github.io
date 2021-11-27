@@ -38,18 +38,19 @@ rtdb.get(chatroomNamesRef).then((snapshot) => {
     let keys = Object.keys(chatroomNamesAll);
     for (let i = 0; i < keys.length; i++) {
       if (!!chatroomNamesAll[keys[i]].users[currentUser.uid]) {
-        chatroomNames.push(chatroomNamesAll[keys[i]]);
+        addChatTab(chatrommNamesAll[keys[i]].name, chatrommNamesAll[keys[i]].users);
+        // chatroomNames.push(chatroomNamesAll[keys[i]]);
       }
     }
 
-    for (let i = 0; i < chatroomNames.length; i++) {
-      let chatroomRef = rtdb.ref(db, "/chatRoomNames/" + Object.keys(chatroomNames[i])[0]);
-      rtdb.get(chatroomRef).then((snapshot) => {
-        if (snapshot.exists()) {
-          addChatTab(snapshot.val().chatroom_name, snapshot.val().child("users").size);     
-        }
-      });
-    }
+    // for (let i = 0; i < chatroomNames.length; i++) {
+    //   let chatroomRef = rtdb.ref(db, "/chatRoomNames/" + Object.keys(chatroomNames[i])[0]);
+    //   rtdb.get(chatroomRef).then((snapshot) => {
+    //     if (snapshot.exists()) {
+    //       addChatTab(snapsho, snapshot.val().child("users").size);     
+    //     }
+    //   });
+    // }
   }
 });
 
