@@ -107,8 +107,8 @@ var renderChatWindow = function(roomID, chatroomName) {
   }
 
   $("#app").show();
-  $("#chat_window").empty();
-  $("#users_list").empty();
+  // $("#chat_window").empty();
+  // $("#users_list").empty();
 
   rtdb.get(rtdb.ref(db, "/chatRoom/" + roomID + "/")).then((snapshot) => {
   // rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
