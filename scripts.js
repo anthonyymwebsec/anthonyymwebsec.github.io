@@ -29,63 +29,37 @@ let db = rtdb.getDatabase(app);
 let chatRoomHashMap = new Map();
 let chatroomsRef = rtdb.ref(db, "/chatRoom/");
 
-var chatroomNames = []; //chatrooms user is part of
-let chatroomNamesRef = rtdb.ref(db, "/chatRoomNames/");
-rtdb.get(chatroomNamesRef).then((snapshot) => {
+rtdb.get(chatroomsRef).then((snapshot) => {
   if (snapshot.exists()) {
-    // chatroomNamesAll: key/value with random_id: {name: "room1", users: {uid: {uid: "uid"}}}
-    let chatroomNamesAll = snapshot.val();
-    let keys = Object.keys(chatroomNamesAll);
-    for (let i = 0; i < keys.length; i++) {
-      if (!!chatroomNamesAll[keys[i]].users[currentUser.uid]) {
-        addChatTab(keys[i], chatroomNamesAll[keys[i]].name, Object.keys(chatroomNamesAll[keys[i]].users).length);
-        // chatroomNames.push(chatroomNamesAll[keys[i]]);
-      }
-    }
+    console.log("snapshot.val() = " + JSON.stringify(snapshot.val()));
+    snapshot.forEach(function(room) {
+      console.log("room: " + room);
+      console.log("room.val().users: " + room.val().users);
 
-    // for (let i = 0; i < chatroomNames.length; i++) {
-    //   let chatroomRef = rtdb.ref(db, "/chatRoomNames/" + Object.keys(chatroomNames[i])[0]);
-    //   rtdb.get(chatroomRef).then((snapshot) => {
-    //     if (snapshot.exists()) {
-    //       addChatTab(snapsho, snapshot.val().child("users").size);     
-    //     }
-    //   });
-    // }
+      console.log("currentUser.uid = " + currentUser.uid);
+      var roomKeys = Object.keys(room.val().users);
+      for (let i = 0; i < roomKeys.length; i++) {
+        let roomKey = roomKeys[i];
+        if (room.val().users[roomKey] != null && room.val().users[roomKey].uid == currentUser.uid) {
+          console.log("adding chatroom " + room.val().chatroom_name);
+          addChatTab(room.val().chatroom_name, room.child("users").size);          
+        }
+      }
+    });
   }
 });
-
-// rtdb.get(chatroomsRef).then((snapshot) => {
-//   if (snapshot.exists()) {
-//     console.log("snapshot.val() = " + JSON.stringify(snapshot.val()));
-//     snapshot.forEach(function(room) {
-//       console.log("room: " + room);
-//       console.log("room.val().users: " + room.val().users);
-
-//       console.log("currentUser.uid = " + currentUser.uid);
-//       var roomKeys = Object.keys(room.val().users);
-//       for (let i = 0; i < roomKeys.length; i++) {
-//         let roomKey = roomKeys[i];
-//         if (room.val().users[roomKey] != null && room.val().users[roomKey].uid == currentUser.uid) {
-//           console.log("adding chatroom " + room.val().chatroom_name);
-//           addChatTab(room.val().chatroom_name, room.child("users").size);          
-//         }
-//       }
-//     });
-//   }
-// });
 
 $("#app").hide();
 $("#chatroom_settings").hide();
 var chatRef = "";
 
 var currentRoomName = null;
-var currentRoomID = null;
-var renderChatWindow = function(roomID, chatroomName) {
+var chatroomKey = null;
+var renderChatWindow = function(chatroomName) {
   if (currentRoomName == chatroomName) {
     return
   }
   currentRoomName = chatroomName;
-  currentRoomID = roomID;
 
   console.log("rendering chat window");
 
@@ -110,12 +84,15 @@ var renderChatWindow = function(roomID, chatroomName) {
   $("#chat_window").empty();
   $("#users_list").empty();
 
-  rtdb.get(rtdb.ref(db, "/chatRoom/" + roomID + "/")).then((snapshot) => {
-  // rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
+  let titleRef = rtdb.ref(db, "/chatRoom/");
+
+  rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
-      console.log("snapshot.val().owner = " + snapshot.val().owner);
+      chatroomKey = Object.keys(snapshot.val())[0];
+
+      console.log("snapshot.val().owner = " + snapshot.val()[chatroomKey].owner);
       console.log("currentUser.uid = " + currentUser.uid);
-      if (snapshot.val().owner == currentUser.uid) {
+      if (snapshot.val()[chatroomKey].owner == currentUser.uid) {
         $("#chatroom_settings").show();
         console.log("showing chatroom_settings");
       } else {
@@ -123,11 +100,11 @@ var renderChatWindow = function(roomID, chatroomName) {
         console.log("not showing chatroom_settings");
       }
 
-      chatRef = rtdb.ref(db, "/chatRoom/" + currentRoomID + "/chats/");
+      chatRef = rtdb.ref(db, "/chatRoom/" + chatroomKey + "/chats/");
       console.log("snapshot exists for chatRef = " + chatRef);
 
-      if (!chatRoomHashMap.has(currentRoomID)) {
-        chatRoomHashMap.set(currentRoomID, currentRoomID);
+      if (!chatRoomHashMap.has(chatroomKey)) {
+        chatRoomHashMap.set(chatroomKey, chatroomKey);
         $("#chat_window").empty();
         rtdb.onChildAdded(chatRef, ss => {
           setItemDiv(ss.val());
@@ -174,7 +151,7 @@ var addUserRow = function(user) {
     $("#user-row" + user.uid).remove();
     
     //TODO: remove user from db chatroom
-    let userRef = rtdb.ref(db, "/chatRoom/" + currentRoomID + "/users/" + user.uid);
+    let userRef = rtdb.ref(db, "/chatRoom/" + chatroomKey + "/users/" + user.uid);
     rtdb.remove(userRef);
   }
   userRow.appendChild(userRowButton);
@@ -213,38 +190,48 @@ var renderUserRows = function() {
   console.log("chatroomName = " + currentRoomName);
   $("#users_list").empty();
 
-  rtdb.get(rtdb.ref(db, "/chatRoom/" + currentRoomID + "/users")).then((snapshot) => {
+  rtdb.get(rtdb.query(chatroomsRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(currentRoomName))).then((snapshot) => {
     if (snapshot.exists()) {
-      let chatroomUsers = snapshot.val();
-      console.log("chatroomUsers = " + chatroomUsers);
-      let chatroomUserKeys = Object.keys(chatroomUsers);
-      for (let i = 0; i < chatroomUserKeys.length; i++) {
-        let chatroomUser = chatroomUsers[chatroomUserKeys[i]];
-        console.log("chatroomUser = " + chatroomUser);
-        let usersRef = rtdb.ref(db, "/users/" + chatroomUser.uid);
-        rtdb.get(usersRef).then((snapshot) => {
-          if (snapshot.exists()) {
-            console.log("adding user " + snapshot.val());
-            addUserRow(snapshot.val());
+      var firstKey = Object.keys(snapshot.val())[0];
+      let chatroomUsersRef = rtdb.ref(db, "/chatRoom/" + firstKey + "/users");
+      console.log("snapshot exists for chatroomUsersRef = " + chatroomUsersRef);
+
+      rtdb.get(chatroomUsersRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          let chatroomUsers = snapshot.val();
+          console.log("chatroomUsers = " + chatroomUsers);
+          let chatroomUserKeys = Object.keys(chatroomUsers); 
+          for (let i = 0; i < chatroomUserKeys.length; i++) {
+            let chatroomUser = chatroomUsers[chatroomUserKeys[i]];
+            console.log("chatroomUser = " + chatroomUser);
+            let usersRef = rtdb.ref(db, "/users/" + chatroomUser.uid);
+            rtdb.get(usersRef).then((snapshot) => {
+              if (snapshot.exists()) {
+                console.log("adding user " + snapshot.val());
+                addUserRow(snapshot.val());
+              }
+            });
           }
-        });
-      }
-      var chatroomSettings = document.getElementById("chatroom_settings");
-      var usersList = document.getElementById("users_list");
-      chatroomSettings.append(usersList);
+          var chatroomSettings = document.getElementById("chatroom_settings");
+          var usersList = document.getElementById("users_list");
+          chatroomSettings.append(usersList);
+        } else {
+          console.log("chatroom users snapshot doesn't exist");
+        }
+      });
     } else {
-      console.log("chatroom users snapshot doesn't exist");
+      console.log("chatroom snapshot doesn't exist");
     }
   });
 }
 
-var addChatTab = function(chatroomID, chatroomName, userCount) {
+var addChatTab = function(chatroomName, userCount) {
   var msgDiv = document.createElement("button");
   msgDiv.classList.add("tablinks");
   msgDiv.innerText = chatroomName;
   msgDiv.id = chatroomName;
   msgDiv.onclick = function() {
-    renderChatWindow(chatroomID, chatroomName);
+    renderChatWindow(chatroomName);
   }
   if (userCount!=null) {
     var msgBadge = document.createElement("span");
@@ -328,7 +315,7 @@ var joinOrCreateChatRoomSubmit = function() {
           "chatroom_name": name,
           "owner": currentUser.uid,
           "users": {
-            "uid": {"uid": currentUser.uid}
+            "owner": {"uid": currentUser.uid}
           }
         };
         rtdb.push(chatroomsRef, newObj);
