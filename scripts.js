@@ -113,9 +113,9 @@ var renderChatWindow = function(roomID, chatroomName) {
   rtdb.get(rtdb.ref(db, "/chatRoom/" + roomID + "/")).then((snapshot) => {
   // rtdb.get(rtdb.query(titleRef, rtdb.orderByChild("chatroom_name"), rtdb.equalTo(chatroomName))).then((snapshot) => {
     if (snapshot.exists()) {
-      console.log("snapshot.val().owner = " + snapshot.val()[currentRoomID].owner);
+      console.log("snapshot.val().owner = " + snapshot.val().owner);
       console.log("currentUser.uid = " + currentUser.uid);
-      if (snapshot.val()[currentRoomID].owner == currentUser.uid) {
+      if (snapshot.val().owner == currentUser.uid) {
         $("#chatroom_settings").show();
         console.log("showing chatroom_settings");
       } else {
